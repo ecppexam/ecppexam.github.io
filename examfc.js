@@ -501,7 +501,7 @@
         };
 
         // URL of your Google Apps Script Web App
-        const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwVOhb3nBZMq9NPSKiLDt3_KRpcDqKhZUDTZZiMq-wT1ut3eG-axZDCzdvmAm_OZMB11A/exec';
+        const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbym2tq5jyjKUIzVhoTncQ4ssWfldulG7sLiLx740PZjy_DKBjX064IfxnqLZl2yQc2vtg/exec';
 
         // Load Subjects when the page loads
         document.addEventListener('DOMContentLoaded', loadSubjects);
