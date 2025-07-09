@@ -364,7 +364,7 @@
         }
 
         function fetchQuestions(subjectId) {
-            const url = `https://script.google.com/macros/s/AKfycbyQAlZTaPFJg51C_YcxshGFhsUjLpWTJP4CBjX3vOxyvY9XGErQgz_NflYTbs5SPcvy/exec?lesson=${subjectId}`;
+            const url = `https://script.google.com/macros/s/AKfycbwVOhb3nBZMq9NPSKiLDt3_KRpcDqKhZUDTZZiMq-wT1ut3eG-axZDCzdvmAm_OZMB11A/exec?lesson=${subjectId}`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -501,7 +501,7 @@
         };
 
         // URL of your Google Apps Script Web App
-        const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbym2tq5jyjKUIzVhoTncQ4ssWfldulG7sLiLx740PZjy_DKBjX064IfxnqLZl2yQc2vtg/exec';
+        const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwd6Oav_WeZIfdWwC_3oQpOzFi-8kJl4TMVEyzVOyXhm32FqiZ_s_t5t5XYinHi7Nu6/exec';
 
         // Load Subjects when the page loads
         document.addEventListener('DOMContentLoaded', loadSubjects);
