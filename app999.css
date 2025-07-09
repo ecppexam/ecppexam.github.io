@@ -1,0 +1,166 @@
+/* Base Styles */
+body {
+    font-family: 'Prompt', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Background Styles */
+.gradient-background {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+}
+
+/* Glass Morphism Effects */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-morphism {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Quiz Card Styles */
+.quiz-card {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quiz-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Option Card Styles */
+.option-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.option-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #667eea;
+}
+
+.option-card.selected {
+    background-color: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+/* Progress Bar Styles */
+.progress-bar {
+    transition: width 0.5s ease;
+}
+
+/* Button Styles */
+.button {
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Animation Classes */
+.animate-fade {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+/* Loading Spinner Styles */
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+/* LINE Button Styles */
+.bg-line {
+    background-color: #06C755;
+}
+
+.hover-line:hover {
+    background-color: #05AB48;
+}
+
+/* Login Button Styles */
+#loginButton {
+    background-color: #00B900; /* สีเขียวของ LINE */
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex; /* ใช้ flexbox เพื่อจัดวางองค์ประกอบ */
+    align-items: center; /* จัดวางองค์ประกอบให้อยู่ตรงกลางแนวดิ่ง */
+    justify-content: center; /* จัดวางองค์ประกอบให้อยู่ตรงกลางแนวนอน */
+}
+
+#loginButton .line-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px; /* กำหนดช่องว่างระหว่างโลโก้และข้อความ */
+}
+
+#loginButton .text-lg {
+    white-space: nowrap; /* ป้องกันการตัดข้อความ */
+    font-size: 1.125rem; /* กำหนดขนาดตัวหนังสือให้เหมาะสม */
+}
+
+
+/* Span Styles */
+span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #cccccc;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
