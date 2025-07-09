@@ -12,7 +12,7 @@
             lesson: '',
             email: null,
             currentPage: 1,
-            subjectsPerPage: 10,
+            subjectsPerPage: 7,
             questionResults: [],
             subjects: []
         };
