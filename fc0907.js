@@ -1,4 +1,4 @@
- <script>
+
         // Configuration
         const CONFIG = {
             LIFF_ID: "2006455439-DvrXJ76M",
@@ -473,4 +473,4 @@
 
         // Start the application
         window.onload = initializeApp;
-    </script>
+  
