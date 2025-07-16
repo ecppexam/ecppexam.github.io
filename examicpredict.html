@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-CPP QuizIC</title>
+    <title>e-CPP Quiz</title>
     <!-- Import Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Import SweetAlert2 for alerts -->
@@ -505,7 +505,7 @@
         }
 
         function fetchQuestions(subjectId) {
-            const url = `https://script.google.com/macros/s/AKfycbwb7H8VNgN7V4okGPxSdUvgYAXDb0kcAglBMDPNzkX1IQyIJgqZzqQv0c7VLKbC04hSpQ/exec?lesson=${subjectId}`;
+            const url = `https://script.google.com/macros/s/AKfycby3osXAXDP9N3b6A0AKXCGlhIlXBkm_31ca9F4d0jsZ8l8ZXIFTLY_qFpbCB7kYH57mJA/exec?lesson=${subjectId}`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -642,7 +642,7 @@
         };
 
         // URL of your Google Apps Script Web App
-        const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxfrHwGUzhlpZdkaqJ1NZUvt5OZmZmaAFB7qmonYSrkectGasLmKopWS590AEwKZLDUIA/exec';
+        const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyaTF-lF_ImMhSNOho5AKYgYsA0MQOSO1pSrH3mKyoGHu4aBabFztrfG8Q8lsARscnh3w/exec';
 
         // Load Subjects when the page loads
         document.addEventListener('DOMContentLoaded', loadSubjects);
