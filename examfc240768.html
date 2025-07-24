@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>e-CPP Quiz with Review</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"  rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .quiz-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .quiz-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .option-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .option-card.selected {
+            background-color: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .progress-bar { transition: width 0.5s ease; }
+        .button { transition: all 0.3s ease; transform: translateY(0); }
+        .button:hover { transform: translateY(-2px); }
+        .animate-fade { animation: fadeIn 0.5s ease-in; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="py-8 px-4 sm:px-6 lg:px-8 font-prompt">
+<div class="max-w-3xl mx-auto">
+
+<!-- Select Number of Questions -->
+<div id="questionNumberSelection" class="quiz-card rounded-2xl shadow-xl p-8 text-center">
+    <h2 class="text-xl font-bold text-gray-800 mb-6">เลือกจำนวนข้อสอบที่ต้องการทำ</h2>
+    <div class="grid grid-cols-2 gap-4">
+        <button onclick="setQuestionCount(10)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">10 ข้อ</button>
+        <button onclick="setQuestionCount(20)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">20 ข้อ</button>
+        <button onclick="setQuestionCount(30)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">30 ข้อ</button>
+        <button onclick="setQuestionCount(40)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">40 ข้อ</button>
+        <button onclick="setQuestionCount(50)" class="button col-span-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">50 ข้อ</button>
+    </div>
+</div>
+
+<!-- Subject Selection -->
+<div id="subjectSelection" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">เลือกวิชาที่ท่านต้องการ</h2>
+    <div id="subjectButtonsContainer"></div>
+</div>
+
+<!-- Loading Screens -->
+<div id="loadingScreen" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
+    <div class="loading-spinner mx-auto mb-4"></div>
+    <p class="text-gray-600">กำลังโหลดข้อสอบ...</p>
+</div>
+<div id="loadingScreen2" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
+    <div class="loading-spinner mx-auto mb-4"></div>
+    <p class="text-gray-600">กรุณารอซักครู่...</p>
+</div>
+<div id="loadingScreen3" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
+    <div class="loading-spinner mx-auto mb-4"></div>
+    <p class="text-gray-600">กำลังโหลดรายวิชา</p>
+</div>
+
+<!-- Quiz Container -->
+<div id="quizContainer" class="quiz-card rounded-2xl shadow-xl p-6 sm:p-8 hidden">
+    <!-- Header, Progress Bar, Question, Navigation are here -->
+    <div class="text-center mb-8">
+        <h1 class="text-xl font-bold text-gray-800 mb-2">น้องพัสดุ ติวสอบ e-CPP</h1>
+        <img id="userPicture" class="w-24 h-24 mx-auto mb-4 rounded-full shadow-lg object-cover"
+             src="https://i.pinimg.com/originals/be/04/0f/be040f35f073adc3a48c1fba489d2bc4.gif" alt="User Profile"/>
+        <p id="userName" class="text-xl font-medium text-gray-600 mb-2"></p>
+    </div>
+    <div class="mb-6">
+        <div class="flex justify-between mb-2">
+            <strong class="text-sm font-medium text-gray-600" id="lesson">วิชา</strong>
+            <strong class="text-xl font-medium text-indigo-600" id="progressText">1/10</strong>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2.5">
+            <div class="progress-bar bg-indigo-600 h-2.5 rounded-full" style="width: 10%"></div>
+        </div>
+    </div>
+    <div id="questionContainer" class="mb-8 animate-fade"></div>
+    <div class="flex gap-4">
+        <button id="backButton" class="button flex-1 px-6 py-3 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 transition-colors hidden"><strong class="flex items-center justify-center"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> ย้อนกลับ</strong></button>
+        <button id="nextButton" class="button flex-1 px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"><strong class="flex items-center justify-center">ถัดไป <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></strong></button>
+        <button id="submitButton" class="button flex-1 px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors hidden"><strong class="flex items-center justify-center">ส่งคำตอบ <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></strong></button>
+    </div>
+</div>
+
+<!-- Score Card -->
+<div id="scoreCard" class="quiz-card rounded-2xl shadow-xl p-8 mt-6 hidden animate-fade">
+    <div class="text-center">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+            <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">ผลคะแนนของคุณ</h2>
+        <p class="text-4xl font-bold text-indigo-600 mb-4" id="scoreText">0/10</p>
+        <div class="space-y-4">
+            <!-- NEW: Review Button -->
+            <button id="reviewButton" class="button w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                ดูเฉลย
+            </button>
+            <button onclick="restartQuiz()" class="button w-full px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                เริ่มทำแบบทดสอบใหม่
+            </button>
+            <button onclick="restartPages()" class="button w-full px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">
+                เลือกวิชาใหม่
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- NEW: Review Container -->
+<div id="reviewContainer" class="quiz-card rounded-2xl shadow-xl p-6 sm:p-8 mt-6 hidden animate-fade">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">เฉลยข้อสอบ</h2>
+    <div id="reviewContent" class="space-y-6">
+        <!-- Review content will be generated here by JavaScript -->
+    </div>
+    <button id="backToScoreButton" class="button w-full mt-8 px-6 py-3 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors">
+        กลับไปหน้าผลคะแนน
+    </button>
+</div>
+
+
+<footer class="text-center mt-8 text-white">
+    <p>© 2024 e-CPP Quiz with Review. All rights reserved.</p>
+</footer>
+
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/versions/2.22.3/sdk.js"></script>
+<script>
+    // --- START: JavaScript Application Logic ---
+
+    const LIFF_ID = "2006496555-YOj9ae7d";
+    const state = {
+        userProfile: null, questions: [], currentQuestionIndex: 0, score: 0,
+        userAnswers: [], isLoading: true, lesson: '', email: null, numQuestions: 10
+    };
+
+    // --- Utility and UI Functions (Unchanged) ---
+    const shuffle = array => {
+        for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[array[i], array[j]] = [array[j], array[i]]; }
+        return array;
+    };
+    const getRandomQuestions = (questions, num) => shuffle([...questions]).slice(0, num);
+    const updateProgressBar = () => {
+        const progress = ((state.currentQuestionIndex + 1) / state.questions.length) * 100;
+        document.querySelector('.progress-bar').style.width = `${progress}%`;
+        document.getElementById('progressText').textContent = `${state.currentQuestionIndex + 1}/${state.questions.length}`;
+        document.getElementById('lesson').textContent = `${state.lesson}`;
+    };
+    const displayQuestion = () => {
+        const question = state.questions[state.currentQuestionIndex];
+        const container = document.getElementById('questionContainer');
+        container.innerHTML = `
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">${state.currentQuestionIndex + 1}. ${question.question}</h2>
+            <div class="space-y-3">
+                ${question.options.map(option => `
+                    <div class="option-card p-4 rounded-lg border ${state.userAnswers[state.currentQuestionIndex] === option ? 'selected' : ''}"
+                         onclick="selectOption('${option.replace(/'/g, "\\'")}')">
+                        <div class="flex items-center">
+                            <span class="w-6 h-6 flex items-center justify-center rounded-full border-2 border-gray-300 mr-3 flex-shrink-0">
+                                ${state.userAnswers[state.currentQuestionIndex] === option ? '✓' : ''}
+                            </span>
+                            <span>${option}</span>
+                        </div>
+                    </div>`).join('')}
+            </div>`;
+        updateProgressBar();
+        updateNavigationButtons();
+    };
+    const updateNavigationButtons = () => {
+        document.getElementById('backButton').classList.toggle('hidden', state.currentQuestionIndex === 0);
+        document.getElementById('nextButton').classList.toggle('hidden', state.currentQuestionIndex >= state.questions.length - 1);
+        document.getElementById('submitButton').classList.toggle('hidden', state.currentQuestionIndex < state.questions.length - 1);
+    };
+
+    // --- Event Handlers (Unchanged) ---
+    const selectOption = (option) => { state.userAnswers[state.currentQuestionIndex] = option; displayQuestion(); };
+    const nextQuestion = () => {
+        if (!state.userAnswers[state.currentQuestionIndex]) { Swal.fire('คำเตือน', 'กรุณาเลือกคำตอบก่อนไปข้อถัดไป', 'warning'); return; }
+        if (state.currentQuestionIndex < state.questions.length - 1) { state.currentQuestionIndex++; displayQuestion(); }
+    };
+    const previousQuestion = () => { if (state.currentQuestionIndex > 0) { state.currentQuestionIndex--; displayQuestion(); } };
+    const calculateScore = () => {
+        state.score = 0;
+        state.questions.forEach((question, index) => {
+            const userAnswer = state.userAnswers[index]?.trim() || "";
+            const correctAnswers = Array.isArray(question.answer) ? question.answer.map(a => a.trim()) : [question.answer?.trim()];
+            if (correctAnswers.includes(userAnswer)) { state.score++; }
+        });
+    };
+
+    // --- MODIFIED: Show Results Function ---
+    const showResults = () => {
+        calculateScore();
+        document.getElementById('quizContainer').classList.add('hidden');
+        document.getElementById('loadingScreen2').classList.remove('hidden');
+        
+        setTimeout(() => {
+            document.getElementById('loadingScreen2').classList.add('hidden');
+            document.getElementById('scoreText').textContent = `${state.score}/${state.questions.length}`;
+            document.getElementById('scoreCard').classList.remove('hidden');
+
+            const percentage = (state.score / state.questions.length) * 100;
+            if (percentage >= 80 && typeof confetti === 'function') {
+                 confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+            }
+        }, 1500); // Shortened delay a bit
+    };
+
+    // --- NEW: Function to Display Review ---
+    const displayReview = () => {
+        const reviewContent = document.getElementById('reviewContent');
+        reviewContent.innerHTML = ''; // Clear previous review
+
+        state.questions.forEach((q, index) => {
+            const userAnswer = state.userAnswers[index] || "ไม่ได้ตอบ";
+            const correctAnswer = Array.isArray(q.answer) ? q.answer.join(', ') : q.answer;
+            const isCorrect = (state.userAnswers[index]?.trim() === correctAnswer.trim());
+            const explanation = q.explanation || 'ไม่มีคำอธิบายสำหรับข้อนี้';
+
+            const resultClass = isCorrect ? 'bg-green-100 border-green-500' : 'bg-red-100 border-red-500';
+            const resultIcon = isCorrect ? '<span class="text-green-600 font-bold">✔ ถูกต้อง</span>' : '<span class="text-red-600 font-bold">✖ ผิด</span>';
+
+            const reviewItemHTML = `
+                <div class="p-4 rounded-lg border-2 ${resultClass}">
+                    <p class="font-bold text-gray-800 mb-2">${index + 1}. ${q.question}</p>
+                    <p class="text-sm text-gray-700">คำตอบของคุณ: <span class="font-semibold">${userAnswer}</span> ${resultIcon}</p>
+                    ${!isCorrect ? `<p class="text-sm text-green-700">คำตอบที่ถูก: <span class="font-semibold">${correctAnswer}</span></p>` : ''}
+                    <div class="mt-3 pt-3 border-t border-gray-300">
+                        <p class="text-sm text-blue-800 font-semibold">คำอธิบาย:</p>
+                        <p class="text-sm text-gray-600">${explanation}</p>
+                    </div>
+                </div>
+            `;
+            reviewContent.innerHTML += reviewItemHTML;
+        });
+    };
+    
+    // --- NEW: Functions to control Review UI visibility ---
+    const showReviewScreen = () => {
+        document.getElementById('scoreCard').classList.add('hidden');
+        displayReview();
+        document.getElementById('reviewContainer').classList.remove('hidden');
+    };
+
+    const backToScoreScreen = () => {
+        document.getElementById('reviewContainer').classList.add('hidden');
+        document.getElementById('scoreCard').classList.remove('hidden');
+    };
+
+    // --- Core Logic & LIFF (Mostly Unchanged) ---
+    async function shareResults() { /* ... function content remains the same ... */ }
+    async function initializeLIFF() { /* ... function content remains the same ... */ }
+    function setQuestionCount(count) { state.numQuestions = count; document.getElementById('questionNumberSelection').classList.add('hidden'); loadSubjects(); }
+    function selectSubject(subjectName) { document.getElementById('subjectSelection').classList.add('hidden'); document.getElementById('loadingScreen').classList.remove('hidden'); fetchQuestions(subjectName); }
+    async function sendToGoogleSheet(userId, name, email, lesson, score) { /* ... function content remains the same ... */ }
+    async function loadSubjects() { /* ... function content remains the same ... */ }
+    function fetchQuestions(subjectId) {
+        const url = `https://script.google.com/macros/s/AKfycbx5oLHsdQhEAtJ1gsDrGbDWTQcY5wvNQkriwclSCcRZ1cF0iBGNphE8bPD6uV-2Y313/exec?lesson=${encodeURIComponent(subjectId)}`;
+        fetch(url)
+            .then(response => { if (!response.ok) throw new Error('Network response was not ok'); return response.json(); })
+            .then(data => {
+                state.questions = getRandomQuestions(data, state.numQuestions);
+                state.lesson = subjectId;
+                state.currentQuestionIndex = 0;
+                state.userAnswers = new Array(state.questions.length).fill(null);
+                state.score = 0;
+                document.getElementById('loadingScreen').classList.add('hidden');
+                document.getElementById('quizContainer').classList.remove('hidden');
+                displayQuestion();
+            })
+            .catch(error => {
+                console.error("Error fetching questions:", error);
+                document.getElementById('loadingScreen').classList.add('hidden');
+                Swal.fire("เกิดข้อผิดพลาด", "ไม่สามารถโหลดข้อสอบได้ กรุณาลองใหม่อีกครั้ง", "error").then(restartPages);
+            });
+    }
+
+    // --- MODIFIED: Restart Functions ---
+    function restartQuiz() {
+        state.questions = getRandomQuestions(state.questions, state.numQuestions);
+        state.currentQuestionIndex = 0;
+        state.userAnswers = new Array(state.questions.length).fill(null);
+        state.score = 0;
+        document.getElementById('scoreCard').classList.add('hidden');
+        document.getElementById('reviewContainer').classList.add('hidden'); // Hide review
+        document.getElementById('quizContainer').classList.remove('hidden');
+        displayQuestion();
+    }
+
+    function restartPages() {
+        state.currentQuestionIndex = 0;
+        state.userAnswers = [];
+        state.score = 0;
+        document.getElementById('quizContainer').classList.add('hidden');
+        document.getElementById('scoreCard').classList.add('hidden');
+        document.getElementById('reviewContainer').classList.add('hidden'); // Hide review
+        document.getElementById('subjectSelection').classList.add('hidden');
+        document.getElementById('questionNumberSelection').classList.remove('hidden');
+    }
+
+    // --- Event Listeners ---
+    document.getElementById('nextButton').addEventListener('click', nextQuestion);
+    document.getElementById('backButton').addEventListener('click', previousQuestion);
+    document.getElementById('submitButton').addEventListener('click', () => {
+        if (!state.userAnswers[state.currentQuestionIndex]) { Swal.fire('คำเตือน', 'กรุณาเลือกคำตอบก่อนส่ง', 'warning'); return; }
+        Swal.fire({
+            title: 'ยืนยันการส่งคำตอบ', text: 'คุณต้องการส่งคำตอบใช่หรือไม่?', icon: 'question',
+            showCancelButton: true, confirmButtonText: 'ส่งคำตอบ', cancelButtonText: 'ยกเลิก',
+            confirmButtonColor: '#16a34a', cancelButtonColor: '#d33'
+        }).then((result) => {
+            if (result.isConfirmed) { showResults(); shareResults(); }
+        });
+    });
+
+    // --- NEW: Event Listeners for Review ---
+    document.getElementById('reviewButton').addEventListener('click', showReviewScreen);
+    document.getElementById('backToScoreButton').addEventListener('click', backToScoreScreen);
+    
+    window.onload = async () => {
+        await initializeLIFF();
+        document.querySelectorAll('.quiz-card').forEach(card => card.classList.add('hidden'));
+        document.getElementById('questionNumberSelection').classList.remove('hidden');
+    };
+    
+    // Paste the unchanged functions (shareResults, initializeLIFF, etc.) here to keep the script complete
+    // For brevity, I'm assuming you have them. I'll just put stubs.
+    async function shareResults() { if (!state.userProfile || !liff.isInClient()) return; const flexMessage = {"type":"flex","altText":"ผลการสอบ e-CPP","contents":{"type":"bubble","body":{"type":"box","layout":"vertical","contents":[{"type":"box","layout":"horizontal","contents":[{"type":"box","layout":"vertical","contents":[{"type":"image","url":state.userProfile.pictureUrl||"https://i.pinimg.com/originals/be/04/0f/be040f35f073adc3a48c1fba489d2bc4.gif","aspectMode":"cover","size":"full"}],"cornerRadius":"100px","width":"72px","height":"72px"},{"type":"box","layout":"vertical","contents":[{"type":"text","contents":[{"type":"span","text":"คุณ : "+state.userProfile.displayName,"weight":"bold","color":"#000000"}],"size":"sm","wrap":false},{"type":"text","contents":[{"type":"span","text":"วิชา : "+state.lesson,"weight":"bold","color":"#bcbcbc"}],"size":"sm","wrap":false},{"type":"text","contents":[{"type":"span","text":`คะแนน: ${state.score}/${state.questions.length}`,"weight":"bold","color":"#000000"}],"size":"sm","wrap":true}],"justifyContent":"space-between"}],"spacing":"xl","paddingAll":"20px"}],"paddingAll":"0px"}}}; try { await sendToGoogleSheet(state.userProfile.userId, state.userProfile.displayName, state.email, state.lesson, state.score); await liff.sendMessages([flexMessage]); } catch (error) { console.error('Error sharing results:', error); Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถแชร์ผลคะแนนได้', 'error'); } };
+    async function initializeLIFF() { try { await liff.init({ liffId: LIFF_ID }); if (liff.isLoggedIn()) { state.userProfile = await liff.getProfile(); const decodedToken = liff.getDecodedIDToken(); state.email = decodedToken.email; document.getElementById('userPicture').src = state.userProfile.pictureUrl; document.getElementById('userName').textContent = state.userProfile.displayName; } else { liff.login(); } } catch (error) { console.error('LIFF initialization failed:', error); document.getElementById('userName').textContent = "Guest User"; } }
+    async function sendToGoogleSheet(userId, name, email, lesson, score) { const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyrm59LjB85rWLZD5GOQe7R4wjdCO_PkLv0bHtXB8k_hxIWVYF5gfpOEwJNDnTjcCK6fg/exec'; try { await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams({userId, displayName: name, email, lesson, score}) }); console.log('Data submission initiated.'); } catch (error) { console.error("Error sending data to Google Sheet:", error); } }
+    async function loadSubjects() { const SUBJECTS_API_URL = 'https://script.google.com/macros/s/AKfycbyV0y8S6srb1X3y_Ws50RDHR33suUnnMT3_9huHB7LOb9F4-WgZG7Wy0c6u0klPIMFTAw/exec'; document.getElementById('loadingScreen3').classList.remove('hidden'); try { const response = await fetch(SUBJECTS_API_URL); if (!response.ok) throw new Error('Failed to load subjects'); const data = await response.json(); const container = document.getElementById('subjectButtonsContainer'); container.innerHTML = ''; const wrapper = document.createElement('div'); wrapper.className = 'grid grid-cols-1 md:grid-cols-2 gap-4'; data.subjects.forEach(subject => { const card = document.createElement('div'); card.className = 'flex flex-col items-center p-4 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300'; const title = document.createElement('h3'); title.className = 'text-lg font-bold text-gray-800 mb-3 text-center'; title.textContent = subject.name; const button = document.createElement('button'); button.className = 'button w-full px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700'; button.textContent = 'ทำข้อสอบ'; button.onclick = () => selectSubject(subject.name); card.appendChild(title); card.appendChild(button); wrapper.appendChild(card); }); container.appendChild(wrapper); } catch (error) { console.error('Error loading subjects:', error); Swal.fire("เกิดข้อผิดพลาด", "ไม่สามารถโหลดรายวิชาได้", "error"); } finally { document.getElementById('loadingScreen3').classList.add('hidden'); document.getElementById('subjectSelection').classList.remove('hidden'); } }
+
+</script>
+</body>
+</html>
