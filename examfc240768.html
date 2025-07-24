@@ -12,66 +12,67 @@
 
     <!-- Custom CSS -->
     <style>
-        body {
-            font-family: 'Prompt', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
+    body {
+        font-family: 'Prompt', sans-serif;
+        background: white; /* Changed to white */
+        min-height: 100vh;
+        color: black; /* Ensures text color is black by default */
+    }
+    .quiz-card {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: black; /* Ensures text color is black */
+    }
 
-        .quiz-card {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .quiz-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        }
-        
-        .option-card {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            cursor: pointer;
-        }
-        
-        .option-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-color: #667eea;
-        }
+    /* Additional styles remain unchanged */
+    .quiz-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
 
-        .option-card.selected {
-            background-color: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-        
-        .progress-bar { transition: width 0.5s ease; }
-        .button { transition: all 0.3s ease; transform: translateY(0); }
-        .button:hover { transform: translateY(-2px); }
-        .animate-fade { animation: fadeIn 0.5s ease-in; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .option-card {
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        cursor: pointer;
+        color: black; /* Ensures text color is black */
+    }
 
-        .loading-spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
+    .option-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-color: #667eea;
+    }
+    .option-card.selected {
+        background-color: #667eea;
+        color: white;
+        border-color: #667eea;
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+    .progress-bar { transition: width 0.5s ease; }
+    .button { transition: all 0.3s ease; transform: translateY(0); }
+    .button:hover { transform: translateY(-2px); }
+    .animate-fade { animation: fadeIn 0.5s ease-in; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .loading-spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #667eea;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
 </head>
 <body class="py-8 px-4 sm:px-6 lg:px-8 font-prompt">
 <div class="max-w-3xl mx-auto">
