@@ -11,45 +11,50 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 
     <!-- Custom CSS -->
-    <style>
+   <style>
     body {
         font-family: 'Prompt', sans-serif;
-        background: white; /* Changed to white */
+        background: white;
         min-height: 100vh;
-        color: black; /* Ensures text color is black by default */
+        color: black;
     }
+
     .quiz-card {
         backdrop-filter: blur(10px);
         background: rgba(255, 255, 255, 0.95);
         border: 1px solid rgba(255, 255, 255, 0.3);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        color: black; /* Ensures text color is black */
+        color: black;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adding shadow */
     }
 
-    /* Additional styles remain unchanged */
     .quiz-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px); /* Adding depth on hover */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Enhancing shadow on hover */
     }
 
     .option-card {
         transition: all 0.3s ease;
         border: 2px solid transparent;
         cursor: pointer;
-        color: black; /* Ensures text color is black */
+        color: black;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding shadow */
     }
 
     .option-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-3px); /* Adding depth on hover */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhancing shadow on hover */
         border-color: #667eea;
     }
+
     .option-card.selected {
         background-color: #667eea;
         color: white;
         border-color: #667eea;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for selected state */
     }
 
+    /* Additional styles remain unchanged */
     .progress-bar { transition: width 0.5s ease; }
     .button { transition: all 0.3s ease; transform: translateY(0); }
     .button:hover { transform: translateY(-2px); }
@@ -59,6 +64,7 @@
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
     }
+
     .loading-spinner {
         border: 4px solid rgba(0, 0, 0, 0.1);
         border-top: 4px solid #667eea;
@@ -67,11 +73,13 @@
         height: 40px;
         animation: spin 1s linear infinite;
     }
+
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
 </style>
+
 
 </head>
 <body class="py-8 px-4 sm:px-6 lg:px-8 font-prompt">
