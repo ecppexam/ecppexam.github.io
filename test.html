@@ -12,42 +12,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Import Confetti for celebration effect -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-    
+
     <style>
         body {
             font-family: 'Prompt', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
-        
+
         .quiz-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .option-card {
             background: white;
             border: 2px solid #e5e7eb;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .option-card:hover {
             border-color: #3b82f6;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
+
         .option-card.selected {
             border-color: #10b981;
             background: #ecfdf5;
         }
-        
+
         .progress-bar {
             background: linear-gradient(90deg, #10b981, #059669);
         }
-        
+
         .loading-spinner {
             width: 50px;
             height: 50px;
@@ -56,43 +56,43 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
+
         .animate-fade {
             animation: fadeIn 0.5s ease-in-out;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .button {
             transition: all 0.3s ease;
         }
-        
+
         .button:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        
+
         .question-count-card {
             background: white;
             border: 2px solid #e5e7eb;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .question-count-card:hover {
             border-color: #3b82f6;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
+
         .question-count-card.selected {
             border-color: #10b981;
             background: #ecfdf5;
@@ -106,12 +106,11 @@
             <h2 class="text-xl font-bold text-gray-800 mb-4">เลือกวิชาที่ท่านต้องการ</h2>
             <div id="subjectButtonsContainer"></div>
         </div>
-
         <!-- Question Count Selection Screen -->
         <div id="questionCountSelection" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
             <h2 class="text-xl font-bold text-gray-800 mb-6">เลือกจำนวนข้อสอบ</h2>
             <div class="text-lg text-gray-600 mb-6">วิชา: <span id="selectedSubject" class="font-bold text-indigo-600"></span></div>
-            
+
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                 <div class="question-count-card p-6 rounded-xl" onclick="selectQuestionCount(10)">
                     <div class="text-3xl font-bold text-indigo-600 mb-2">10</div>
@@ -138,9 +137,9 @@
                     <div class="text-sm text-gray-600">ข้อ</div>
                 </div>
             </div>
-            
+
             <div class="flex gap-4">
-                <button onclick="backToSubjectSelection()" 
+                <button onclick="backToSubjectSelection()"
                         class="button flex-1 px-6 py-3 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 transition-colors">
                     <strong class="flex items-center justify-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,30 +150,26 @@
                 </button>
             </div>
         </div>
-
         <!-- Loading Screen for Quiz -->
         <div id="loadingScreen" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
             <div class="loading-spinner mx-auto mb-4"></div>
             <p class="text-gray-600">กำลังโหลดข้อสอบ...</p>
         </div>
-
         <!-- Loading Screen for Subjects -->
         <div id="loadingScreen3" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
             <div class="loading-spinner mx-auto mb-4"></div>
             <p class="text-gray-600">กำลังโหลดรายวิชา</p>
         </div>
-
         <!-- Quiz Container -->
         <div id="quizContainer" class="quiz-card rounded-2xl shadow-xl p-6 sm:p-8 hidden">
             <!-- Header -->
             <div class="text-center mb-8">
                 <h1 class="text-xl font-bold text-gray-800 mb-2">น้องพัสดุ ติวสอบ e-CPP</h1>
-                <img id="userPicture" class="w-24 h-24 mx-auto mb-4 rounded-full shadow-lg object-cover" 
-                     src="https://i.pinimg.com/originals/be/04/0f/be040f35f073adc3a48c1fba489d2bc4.gif" 
+                <img id="userPicture" class="w-24 h-24 mx-auto mb-4 rounded-full shadow-lg object-cover"
+                     src="https://i.pinimg.com/originals/be/04/0f/be040f35f073adc3a48c1fba489d2bc4.gif"
                      alt="User Profile">
                 <h1 id="userName" class="text-xl font-medium text-gray-600 mb-2"></h1>
             </div>
-
             <!-- Progress Bar -->
             <div class="mb-6">
                 <div class="flex justify-between mb-2">
@@ -185,12 +180,10 @@
                     <div class="progress-bar bg-black-600 h-2.5 rounded-full transition-all duration-300" style="width: 10%"></div>
                 </div>
             </div>
-
             <!-- Question Container -->
             <div id="questionContainer" class="mb-8 animate-fade">
                 <!-- Questions will be inserted here -->
             </div>
-
             <!-- Navigation Buttons -->
             <div class="flex gap-4">
                 <button id="backButton" class="button flex-1 px-6 py-3 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 transition-colors hidden">
@@ -219,7 +212,6 @@
                 </button>
             </div>
         </div>
-
         <!-- Loading Screen for Results -->
         <div id="loadingScreen2" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
             <div class="loading-spinner mx-auto mb-4"></div>
@@ -229,7 +221,6 @@
             <div class="loading-spinner mx-auto mb-4"></div>
             <p class="text-gray-600">กำลังประมวลผลกรุณารอซักครู่...</p>
         </div>
-
         <!-- Score Card -->
         <div id="scoreCard" class="quiz-card rounded-2xl shadow-xl p-8 mt-6 hidden animate-fade">
             <div class="text-center">
@@ -241,35 +232,31 @@
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">ผลคะแนนของคุณ</h2>
                 <p class="text-4xl font-bold text-red-600 mb-4" id="scoreText">0/10</p>
                 <div class="space-y-4">
-                    <button onclick="restartQuiz()" 
+                    <button onclick="restartQuiz()"
                             class="button w-full px-6 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
                         เริ่มทำแบบทดสอบใหม่
                     </button>
-                    <button onclick="restartPages()" 
+                    <button onclick="restartPages()"
                             class="button w-full px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">
                         เลือกวิชาใหม่
                     </button>
                 </div>
             </div>
         </div>
-
         <!-- Pagination Container -->
         <div id="paginationContainer" class="flex justify-center mt-6"></div>
-        
-    </div>
 
+    </div>
     <!-- Footer -->
     <footer class="text-center mt-8 text-white">
         <p>© 2025 น้องพัสดุ ติวสอบ e-CPP. All rights reserved.</p>
     </footer>
-
     <!-- Import LIFF SDK -->
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-    
+
     <script>
         // LIFF App ID
         const LIFF_ID = "2006646358-NxxX4VOl";
-
         // State Management
         const state = {
             userProfile: null,
@@ -375,7 +362,7 @@
             state.questionResults = [];
             state.questions.forEach((question, index) => {
                 const userAnswer = state.userAnswers[index] ? state.userAnswers[index].trim() : "";
-                const correctAnswers = Array.isArray(question.answer) 
+                const correctAnswers = Array.isArray(question.answer)
                     ? question.answer.map(a => a.trim())
                     : [question.answer.trim()];
                 const isCorrect = correctAnswers.includes(userAnswer);
@@ -393,14 +380,12 @@
         const showResults = () => {
             calculateScore();
             // แสดง loading screen
-            document.getElementById('loadingScreen2').classList.remove('hidden'); 
-
+            document.getElementById('loadingScreen2').classList.remove('hidden');
             setTimeout(() => {
                 document.getElementById('loadingScreen2').classList.add('hidden');
                 document.getElementById('scoreText').textContent = `${state.score}/${state.questions.length}`;
                 const scoreCard = document.getElementById('scoreCard');
                 scoreCard.classList.remove('hidden');
-
                 const incorrectAnswers = state.questionResults.filter(result => !result.isCorrect);
                 let resultsHTML;
                 if (incorrectAnswers.length === 0) {
@@ -424,7 +409,6 @@
                             </div>
                     `).join('');
                 }
-
                 const summarySection = document.createElement('div');
                 summarySection.innerHTML = `
                     <div class="mt-6">
@@ -434,7 +418,6 @@
                         </div>
                     </div>
                 `;
-
                 const existingSummary = scoreCard.querySelector('.summary-section');
                 if (existingSummary) existingSummary.remove();
                 summarySection.classList.add('summary-section');
@@ -442,127 +425,125 @@
             }, 4000);
         };
 
-         async function shareResults() {
-        if (!state.userProfile) return;
+        async function shareResults() {
+            if (!state.userProfile) return;
+            const flexMessage = {
+                type: "flex",
+                altText: "ผลการสอบ e-CPP",
+                contents: {
+                    type: "bubble",
+                    body: {
+                        type: "box",
+                        layout: "vertical",
+                        contents: [
+                            {
+                                type: "box",
+                                layout: "horizontal",
+                                contents: [
+                                    {
+                                        type: "box",
+                                        layout: "vertical",
+                                        contents: [
+                                            {
+                                                type: "image",
+                                                url: state.userProfile.pictureUrl || "https://i.pinimg.com/originals/be/04/0f/be040f35f073adc3a48c1fba489d2bc4.gif",
+                                                aspectMode: "cover",
+                                                size: "full"
+                                            }
+                                        ],
+                                        cornerRadius: "100px",
+                                        width: "72px",
+                                        height: "72px"
+                                    },
+                                    {
+                                        type: "box",
+                                        layout: "vertical",
+                                        contents: [
+                                            {
+                                                type: "text",
+                                                contents: [
+                                                    {
+                                                        type: "span",
+                                                        text: "คุณ : " + state.userProfile.displayName,
+                                                        weight: "bold",
+                                                        color: "#000000"
+                                                    },
+                                                    {
+                                                        type: "span",
+                                                        text: "     "
+                                                    }
+                                                ],
+                                                size: "sm",
+                                                wrap: false
+                                            },
+                                            {
+                                                type: "text",
+                                                contents: [
+                                                    {
+                                                        type: "span",
+                                                        text: "วิชา : " + state.lesson,
+                                                        weight: "bold",
+                                                        color: "#bcbcbc"
+                                                    },
+                                                    {
+                                                        type: "span",
+                                                        text: "     "
+                                                    }
+                                                ],
+                                                size: "sm",
+                                                wrap: false
+                                            },
+                                            {
+                                                type: "text",
+                                                contents: [
+                                                    {
+                                                        type: "span",
+                                                        text: `คะแนนของคุณ : ${state.score}/${state.questions.length}`,
+                                                        weight: "bold",
+                                                        color: "#000000"
+                                                    },
+                                                    {
+                                                        type: "span",
+                                                        text: "     "
+                                                    }
+                                                ],
+                                                size: "sm",
+                                                wrap: true
+                                            }
+                                        ],
+                                        justifyContent: "space-between"
+                                    }
+                                ],
+                                spacing: "xl",
+                                paddingAll: "20px"
+                            }
+                        ],
+                        paddingAll: "0px"
+                    }
+                }
+            };
 
-        const flexMessage = {
-          type: "flex",
-          altText: "ผลการสอบ e-CPP",
-          contents: 
-          {
-          "type": "bubble",
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "image",
-                        "url": state.userProfile.pictureUrl || "https://i.pinimg.com/originals/be/04/0f/be040f35f073adc3a48c1fba489d2bc4.gif",
-                        "aspectMode": "cover",
-                        "size": "full"
-                      }
-                    ],
-                    "cornerRadius": "100px",
-                    "width": "72px",
-                    "height": "72px"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "contents": [
-                          {
-                            "type": "span",
-                            "text": "คุณ : " + state.userProfile.displayName,
-                            "weight": "bold",
-                            "color": "#000000"
-                          },
-                          {
-                            "type": "span",
-                            "text": "     "
-                          }
-                        ],
-                        "size": "sm",
-                        "wrap": false
-                      },
-                      {
-                        "type": "text",
-                        "contents": [
-                          {
-                            "type": "span",
-                            "text": "วิชา : " + state.lesson,
-                            "weight": "bold",
-                            "color": "#bcbcbc"
-                          },
-                          {
-                            "type": "span",
-                            "text": "     "
-                          }
-                        ],
-                        "size": "sm",
-                        "wrap": false
-                      },
-                      {
-                        "type": "text",
-                        "contents": [
-                          {
-                            "type": "span",
-                            "text": `คะแนนของคุณ : ${state.score}/${state.questions.length}`,
-                            "weight": "bold",
-                            "color": "#000000"
-                          },
-                          {
-                            "type": "span",
-                            "text": "     "
-                          }
-                        ],
-                        "size": "sm",
-                        "wrap": true
-                      }
-                    ],
-                    "justifyContent": "space-between"
-                  }
-                ],
-                "spacing": "xl",
-                "paddingAll": "20px"
-              }
-            ],
-            "paddingAll": "0px"
-          }
+            const userId = state.userProfile.userId;
+            const name = state.userProfile.displayName;
+            const email = state.email;
+            var lesson = state.lesson;
+            const score = state.score;
+
+            try {
+                await sendToGoogleSheet(userId, name, email, lesson, score);
+                console.log("ข้อมูลถูกบันทึกสำเร็จ");
+                await liff.sendMessages([flexMessage]);
+            } catch (error) {
+                console.error('Error sharing results:', error);
+                Swal.fire({
+                    title: 'เกิดข้อผิดพลาด',
+                    text: 'ไม่สามารถแชร์ผลคะแนนได้ กรุณาลองใหม่อีกครั้ง',
+                    icon: 'error',
+                    confirmButtonText: 'ตกลง'
+                });
+            }
         }
-        };
-        
-        const userId = state.userProfile.userId;
-        const name = state.userProfile.displayName;
-        const email = state.email; 
-        var lesson = state.lesson ;
-        const score = state.score;
-          
-        try {
-          await sendToGoogleSheet(userId, name, email, lesson, score);
-          console.log("ข้อมูลถูกบันทึกสำเร็จ");
-          await liff.sendMessages([flexMessage]);
-        } catch (error) {
-          console.error('Error sharing results:', error);
-          Swal.fire({
-            title: 'เกิดข้อผิดพลาด',
-            text: 'ไม่สามารถแชร์ผลคะแนนได้ กรุณาลองใหม่อีกครั้ง',
-            icon: 'error',
-            confirmButtonText: 'ตกลง'
-          });
-        }
-      }
-        
+
         async function initializeLIFF() {
             try {
                 await liff.init({ liffId: LIFF_ID });
@@ -587,7 +568,7 @@
             document.getElementById('subjectSelection').classList.add('hidden');
             document.getElementById('paginationContainer').classList.add('hidden');
             document.getElementById('questionCountSelection').classList.remove('hidden');
-            
+
             // ลบการเลือกจำนวนข้อเก่า
             document.querySelectorAll('.question-count-card').forEach(card => {
                 card.classList.remove('selected');
@@ -596,13 +577,13 @@
 
         function selectQuestionCount(count) {
             state.selectedQuestionCount = count;
-            
+
             // อัพเดต UI การเลือก
             document.querySelectorAll('.question-count-card').forEach(card => {
                 card.classList.remove('selected');
             });
             event.target.closest('.question-count-card').classList.add('selected');
-            
+
             // เริ่มโหลดข้อสอบ
             setTimeout(() => {
                 document.getElementById('questionCountSelection').classList.add('hidden');
@@ -627,7 +608,7 @@
                     state.lesson = subjectId;
                     state.userAnswers = new Array(state.questions.length).fill(null);
                     state.currentQuestionIndex = 0;
-                    
+
                     document.getElementById('loadingScreen').classList.add('hidden');
                     document.getElementById('quizContainer').classList.remove('hidden');
                     displayQuestion();
@@ -637,3 +618,152 @@
                     Swal.fire("Error", "Unable to load questions", "error");
                 });
         }
+
+        // Function to restart the quiz
+        function restartQuiz() {
+            state.questions = getRandomQuestions(state.allQuestions, state.selectedQuestionCount);
+            state.userAnswers = new Array(state.questions.length).fill(null);
+            state.currentQuestionIndex = 0;
+            state.score = 0;
+            document.getElementById('scoreCard').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            displayQuestion();
+        }
+
+        // Function to restart the pages
+        function restartPages() {
+            document.getElementById('scoreCard').classList.add('hidden');
+            document.getElementById('subjectSelection').classList.remove('hidden');
+            document.getElementById('paginationContainer').classList.remove('hidden');
+        }
+
+        // Function to show an error message
+        function showError(message) {
+            Swal.fire({
+                title: 'Error',
+                text: message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+
+        // Function to send data to Google Sheets
+        async function sendToGoogleSheet(userId, name, email, lesson, score) {
+            const url = `https://script.google.com/macros/s/AKfycbyQAlZTaPFJg51C_YcxshGFhsUjLpWTJP4CBjX3vOxyvY9XGErQgz_NflYTbs5SPcvy/exec`;
+            const data = new URLSearchParams();
+            data.append('userId', userId);
+            data.append('name', name);
+            data.append('email', email);
+            data.append('lesson', lesson);
+            data.append('score', score);
+
+            const response = await fetch(url, {
+                method: 'POST',
+                body: data
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            return response.json();
+        }
+
+        // Function to render subjects
+        function renderSubjects(subjects) {
+            const container = document.getElementById('subjectButtonsContainer');
+            container.innerHTML = '';
+            const startIndex = (state.currentPage - 1) * state.subjectsPerPage;
+            const endIndex = startIndex + state.subjectsPerPage;
+            const subjectsToShow = subjects.slice(startIndex, endIndex);
+
+            subjectsToShow.forEach(subject => {
+                const subjectButton = document.createElement('button');
+                subjectButton.className = 'button w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors mb-2';
+                subjectButton.textContent = subject;
+                subjectButton.onclick = () => selectSubject(subject);
+                container.appendChild(subjectButton);
+            });
+
+            renderPagination(subjects.length);
+        }
+
+        // Function to render pagination
+        function renderPagination(totalSubjects) {
+            const totalPages = Math.ceil(totalSubjects / state.subjectsPerPage);
+            const container = document.getElementById('paginationContainer');
+            container.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            const prevButton = document.createElement('button');
+            prevButton.className = 'px-4 py-2 mx-1 bg-gray-200 rounded';
+            prevButton.textContent = 'Previous';
+            prevButton.onclick = () => {
+                if (state.currentPage > 1) {
+                    state.currentPage--;
+                    renderSubjects(state.subjects);
+                }
+            };
+            container.appendChild(prevButton);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.className = `px-4 py-2 mx-1 ${state.currentPage === i ? 'bg-blue-500 text-white' : 'bg-gray-200'} rounded`;
+                pageButton.textContent = i;
+                pageButton.onclick = () => {
+                    state.currentPage = i;
+                    renderSubjects(state.subjects);
+                };
+                container.appendChild(pageButton);
+            }
+
+            const nextButton = document.createElement('button');
+            nextButton.className = 'px-4 py-2 mx-1 bg-gray-200 rounded';
+            nextButton.textContent = 'Next';
+            nextButton.onclick = () => {
+                if (state.currentPage < totalPages) {
+                    state.currentPage++;
+                    renderSubjects(state.subjects);
+                }
+            };
+            container.appendChild(nextButton);
+        }
+
+        // Function to fetch subjects
+        function fetchSubjects() {
+            const url = `https://script.google.com/macros/s/AKfycbyQAlZTaPFJg51C_YcxshGFhsUjLpWTJP4CBjX3vOxyvY9XGErQgz_NflYTbs5SPcvy/exec`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    state.subjects = data;
+                    document.getElementById('loadingScreen3').classList.add('hidden');
+                    document.getElementById('subjectSelection').classList.remove('hidden');
+                    renderSubjects(state.subjects);
+                })
+                .catch(error => {
+                    console.error("Error fetching subjects:", error);
+                    Swal.fire("Error", "Unable to load subjects", "error");
+                });
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('loadingScreen3').classList.remove('hidden');
+            initializeLIFF();
+            fetchSubjects();
+
+            // Add event listeners for navigation buttons
+            document.getElementById('nextButton').addEventListener('click', nextQuestion);
+            document.getElementById('backButton').addEventListener('click', previousQuestion);
+            document.getElementById('submitButton').addEventListener('click', () => {
+                document.getElementById('loadingScreenSubmit').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('loadingScreenSubmit').classList.add('hidden');
+                    showResults();
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
