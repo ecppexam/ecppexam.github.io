@@ -266,18 +266,27 @@
 
     // --- NEW: Function to Display Review ---
     const displayReview = () => {
-        const reviewContent = document.getElementById('reviewContent');
-        reviewContent.innerHTML = ''; // Clear previous review
+    const reviewContent = document.getElementById('reviewContent');
+    reviewContent.innerHTML = ''; // Clear previous review
 
+    // Check if the current quiz set is "เก็งข้อสอบชุดพิเศษ"
+    if (state.lesson === "เก็งข้อสอบชุดพิเศษ") {
+        // Display only the score without details of each question
+        const scoreItemHTML = `
+            <div class="p-4 rounded-lg border-2 bg-blue-100 border-blue-500">
+                <p class="font-bold text-gray-800 mb-2 text-center">คุณได้คะแนน ${state.score} จาก ${state.questions.length} ข้อ</p>
+            </div>
+        `;
+        reviewContent.innerHTML = scoreItemHTML;
+    } else {
+        // Original behavior for other quiz sets
         state.questions.forEach((q, index) => {
             const userAnswer = state.userAnswers[index] || "ไม่ได้ตอบ";
             const correctAnswer = Array.isArray(q.answer) ? q.answer.join(', ') : q.answer;
             const isCorrect = (state.userAnswers[index]?.trim() === correctAnswer.trim());
             const explanation = q.explanation || 'ไม่มีคำอธิบายสำหรับข้อนี้';
-
             const resultClass = isCorrect ? 'bg-green-100 border-green-500' : 'bg-red-100 border-red-500';
             const resultIcon = isCorrect ? '<span class="text-green-600 font-bold">✔ ถูกต้อง</span>' : '<span class="text-red-600 font-bold">✖ ผิด</span>';
-
             const reviewItemHTML = `
                 <div class="p-4 rounded-lg border-2 ${resultClass}">
                     <p class="font-bold text-gray-800 mb-2">${index + 1}. ${q.question}</p>
@@ -291,7 +300,9 @@
             `;
             reviewContent.innerHTML += reviewItemHTML;
         });
-    };
+    }
+};
+
     
     // --- NEW: Functions to control Review UI visibility ---
     const showReviewScreen = () => {
