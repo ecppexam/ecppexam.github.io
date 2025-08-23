@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ecpp2025</title>
+ <!-- font-awesome@6.2.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+    <!-- jquery@3.6.0 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+  <link href="https://fastly.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@200;300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai');
+/* @import url('https://fonts.googleapis.com/css2?family=Prompt'); */
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Noto Sans Thai', sans-serif;
+      /* font-family: 'Prompt', sans-serif; */
+      /*       font-family: 'IBM Plex Sans Thai Looped', sans-serif;*/
+
+    }
+    body {
+      /* font-family: Kanit, sans-serif; */
+      background: rgb(252, 233, 233);
+      background: linear-gradient(0deg, rgba(252, 233, 233, 1) 0%, rgba(224, 244, 241, 1) 26%, rgba(255, 255, 255, 1) 71%);
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      background-color: skyblue;
+    }
+
+    .list {
+      background-color: #ffffff;
+      padding: 1.8em 1.2em;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      border-radius: 0.6em;
+    }
+
+    .qBox {
+      border: solid 2px #525150 !important;
+      padding: 1rem;
+      margin: 0 10px;
+      border-radius: 13px;
+      max-width: 100%;
+      margin: auto;
+    }
+
+    label {
+      color: black;
+    }
+
+    .container {
+      max-width: 600px;
+    }
+
+    button[type="submit"] {
+      font-family: 'Noto Sans Thai', sans-serif;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      width: 100%;
+      margin: 0 auto;
+      margin-top: 10px;
+      padding: 3%;
+      background: #b26bc2;
+      border: none;
+      border-radius: 5px;
+      font-size: 17px;
+      border-top-style: none;
+      border-right-style: none;
+      border-left-style: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background: #FFCE00;
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <center>
+    <br />
+    
+    <img src="https://lh3.googleusercontent.com/d/1uP_Qb7Yv69rp-X8SAFOr-A0uqmRJAbs7"
+      style="width:200px; height:auto; padding-bottom: 10px; ">
+<!--     <img src="https://lh3.googleusercontent.com/d/1efpC3Yh4kNtinMTODvwImqTJPrm4lEVI"
+      style="width:200px; height:auto; padding-bottom: 10px; "> -->
+    <div class="form-group mb-2">
+      <label for="searchtext">
+        <h3>ระบบลงทะเบียน</h3>
+<!--         <h5 class="text-center text-danger">น้องพัสดุ ติวสอบ e - CPP</h5> -->
+      </label>
+    </div>
+  </center>
+
+  <div class="container list">
+    <form id="myForm" class="needs-validation my-4" novalidate>
+      <div class="row justify-content-start g-3">
+        <div class="col-12">
+          <label for="name">
+            <i class="fa-solid fa-user"></i> ชื่อ-สกุล</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="ชื่อ-สกุล" required>
+          <div class="invalid-feedback">
+            กรุณากรอกชื่อ-สกุล
+          </div>
+        </div>
+        
+         <div class="col-12">
+          <label for="device">
+            <i class="fa-regular fa-circle-user"></i> สังกัดหน่วยงาน</label>
+          <input type="text" id="device" name="device" class="form-control" placeholder="กรุณากรอกสังกัดของท่าน" required>
+          <div class="invalid-feedback">
+            กรุณากรอกสังกัดของท่าน
+          </div>
+        </div>
+        
+        <div class="col-12">
+          <label for="phone">
+            <i class="fa-solid fa-phone"></i> เบอร์โทร</label>
+          <input type="text" id="phone" name="phone" maxlength="10" class="form-control" placeholder="กรุณาใส่เบอร์โทรของท่าน"
+            required>
+          <div class="invalid-feedback">
+            กรุณากรอกเบอร์โทรของท่าน
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label for="place">
+            <i class="fa-solid fa-envelope"></i> อีเมล</label>
+          <input type="email" id="place" name="place" class="form-control" placeholder="กรุณากรอก Email" required>
+          <div class="invalid-feedback">
+            กรุณากรอกอีเมล
+          </div>
+        </div>
+           
+        <div class="col-12">
+  <label for="problem">
+    <i class="fa-solid fa-lock"></i> หลักสูตรที่ท่านลงสอบปี 69</label>
+  <select id="problem" name="problem" class="form-control" required>
+    <option value="">กรุณาเลือกหลักสูตร</option>
+<!--     <option value="PC69">PC เตรียมความพร้อม</option> -->
+<!--     <option value="FC69">FC ชั้นต้น</option> -->
+    <option value="IC69">IC ชั้นกลาง</option>
+<!--     <option value="AC69">AC ชั้นสูง</option> -->
+  </select>
+  <div class="invalid-feedback">
+    กรุณาเลือกหลักสูตรที่ท่านลงสอบ
+  </div>
+</div>
+
+        <div class="col-12">
+          <label for="examOrder">
+            <i class="fa-solid fa-trophy"></i> ลำดับที่สอบผ่านปี 68</label>
+          <input type="number" id="examOrder" name="examOrder" class="form-control" placeholder="กรุณากรอกลำดับที่สอบผ่านปี 68" required>
+          <div class="invalid-feedback">
+            กรุณากรอกลำดับที่สอบผ่านปี 68
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label for="place">
+            <i class="fa-solid fa-file"></i> อัพโหลดรูปประจำตัวของท่าน</label>
+          <input type="file" id="file" class="form-control">
+          <div class="invalid-feedback">
+            กรุณาอัพโหลดรูปประจำตัว
+          </div>
+        </div>
+
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-warning w-100"><i class="bi bi-send-fill"></i>&nbsp;ลงทะเบียน</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script>
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbzAWlzUbRqPUUFLEH7rqoRMTaZecOcQmWJ48kQMqHRc1JAa2P9yPH2EWlPtIk2UXbHo/exec'
+    var uid
+    $(document).ready(() => {
+      liff.init({
+        liffId: '2004722900-KeQyDMRz',
+        withLoginOnExternalBrowser: true
+      })
+      liff.ready.then(() => {
+        console.log('liff ready')
+      })
+    })
+    function submit() {
+      $.LoadingOverlay('show');
+
+      // Read the selected file
+      const fileInput = $('#file')[0];
+      if (fileInput.files.length === 0) {
+        $.LoadingOverlay('hide');
+        alert('Please select a file.');
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const fr = new FileReader();
+      fr.onload = function (e) {
+        const base64File = e.target.result.replace(/^.*,/, '');
+
+        let data = {
+          opt: 'savedata',
+          uid: liff.getDecodedIDToken().sub,
+          name: $('#name').val(),
+          phone: $('#phone').val(),
+          device: $('#device').val(),
+          problem: $('#problem').val(),
+          place: $('#place').val(),
+          examOrder: $('#examOrder').val(),
+          file: base64File, // Add the Base64-encoded file to the data object
+        };
+
+        // Send the AJAX request with the file data
+        $.ajax({
+          method: "POST",
+          url: scriptUrl,
+          data: data,
+          dataType: 'json',
+          success: function (res) {
+            $.LoadingOverlay('hide');
+            if (res.status == 'success') {
+               // Send a message with the user's name
+            const name = $('#name').val();
+            const problem = $('#problem').val();
+            liff.sendMessages([{
+              type: 'text',
+              text: `คุณ : ${name} หลักสูตร ${problem} ลงทะเบียนเรียบร้อยแล้ว`
+            }])
+            .then(() => {
+              // Close the LIFF window
+              liff.closeWindow();
+            })
+            .catch((err) => {
+              console.error('Error sending message:', err);
+            });
+              // reset the form
+              $('#myForm')[0].reset();
+              return Swal.fire({
+                icon: 'success',
+                title: 'ลงทะเบียนเรียบร้อย',
+                allowOutsideClick: false,
+                confirmButtonText: 'ตกลง',
+              });
+            }
+            return Swal.fire({
+              icon: 'error',
+              title: 'เกิดข้อผิดพลาด',
+              allowOutsideClick: false,
+              confirmButtonText: 'ตกลง',
+            });
+          },
+          error: function (err) {
+            console.log(err);
+            $.LoadingOverlay('hide');
+            alert('ลงทะเบียนไม่สำเร็จ');
+          },
+        });
+      };
+      fr.readAsDataURL(file);
+    }
+
+    // function submit() {
+    //   $.LoadingOverlay('show')
+    //   let data = {
+    //     opt: 'savedata',
+    //     uid: liff.getDecodedIDToken().sub,
+    //     name: $('#name').val(),
+    //     phone: $('#phone').val(),
+    //     device: $('#device').val(),
+    //     problem: $('#problem').val(),
+    //     place: $('#place').val(),
+    //   }
+
+
+    //   $.ajax({
+    //     method: "POST",
+    //     url: scriptUrl,
+    //     data: data,
+    //     dataType: 'json',
+    //     success: function (res) {
+    //       $.LoadingOverlay('hide')
+    //       if (res.status == 'success') {
+    //         // reset the form
+    //         $('#myForm')[0].reset()
+    //         return Swal.fire({
+    //           icon: 'success',
+    //           title: 'บันทึกข้อมูลเรียบร้อย',
+    //           allowOutsideClick: false,
+    //           confirmButtonText: 'ตกลง'
+    //         })
+    //       }
+    //       return Swal.fire({
+    //         icon: 'error',
+    //         title: 'เกิดข้อผิดพลาด',
+    //         allowOutsideClick: false,
+    //         confirmButtonText: 'ตกลง'
+    //       })
+    //     },
+    //     error: function (err) {
+    //       console.log(err)
+    //       $.LoadingOverlay('hide')
+    //       alert('บันทึกข้อมูลไม่สำเร็จ')
+    //     }
+    //   });
+    // }
+
+  </script>
+  <script>
+    (() => {
+      'use strict'
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      const forms = document.querySelectorAll('.needs-validation')
+
+      // Loop over them and prevent submission
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          event.preventDefault()
+          if (!form.checkValidity()) {
+            event.stopPropagation()
+            form.classList.add('was-validated')
+            $('#myForm').find(":invalid").first().focus();
+          } else {
+            submit()
+          }
+
+        }, false)
+      })
+    })()
+  </script>
+
+  <script src="https://fastly.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script
+    src="https://fastly.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+
+
+  <br />
+  <div class="text-center p-4 col-12 mt-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    น้องพัสดุ ติวสอบ e-CPP
+  </div>
+
+</body>
+
+</html>
