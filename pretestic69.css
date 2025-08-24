@@ -1,0 +1,85 @@
+body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .quiz-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .quiz-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .option-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+        
+        .option-card.selected {
+            background-color: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+        
+        .button {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .animate-fade {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; /* กำหนดขนาดที่แน่นอน */
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    margin-right: 8px; /* กำหนดช่องว่างระหว่างคำถามและปุ่ม */
+    flex-shrink: 0; /* ป้องกันไม่ให้ span หดตัว */
+}
+
+
