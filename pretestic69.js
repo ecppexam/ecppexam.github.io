@@ -567,7 +567,7 @@
     
 
 // URL of your Google Apps Script Web App
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbz_1N5L1cAfZsscL7FEkoxTe0mXa5dc5ZHirah8KRJR0_ZFfIh_xmrb1XmDQZ4sg0yl/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyDXYyvFoeWzEj5cYRNMI3eSu3RaXKG7Qp_4TRVsJedxjUAe-g0HfZgnJZXrtJeYzcDbg/exec';
 
 async function loadSubjects() {
     // Show the loading spinner
