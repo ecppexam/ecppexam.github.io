@@ -364,7 +364,7 @@
 
             function fetchQuestions(subjectId) {
                 // Call your Google Apps Script Web App with the subjectId as a parameter
-                const url = `https://script.google.com/macros/s/AKfycbyGgC4CbdwHa5XCYtgEdCpa_J1j34_7qakDibnGAE7aeRcjjA-6e8ghLzZH2Fttt6Lhew/exec?lesson=${subjectId}`;
+                const url = `https://script.google.com/macros/s/AKfycbyDXYyvFoeWzEj5cYRNMI3eSu3RaXKG7Qp_4TRVsJedxjUAe-g0HfZgnJZXrtJeYzcDbg/exec?lesson=${subjectId}`;
                 // console.log("Fetching questions from URL:", url); // Log the URL for fetching questions
 
                 fetch(url)
