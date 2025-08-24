@@ -1,5 +1,5 @@
 // หลักสูตร PC
-        const LIFF_ID = "2006455439-maOja2bd";
+        const LIFF_ID = "2006496555-2Kr4WMz0";
         const state = {
             userProfile: null,
             questions: [],
