@@ -90,6 +90,12 @@
       background: #FFCE00;
       color: #000;
     }
+
+    /* สไตล์สำหรับ option ที่ disable */
+    option:disabled {
+      color: #999999 !important;
+      background-color: #f0f0f0 !important;
+    }
   </style>
 </head>
 
@@ -154,9 +160,9 @@
     <i class="fa-solid fa-lock"></i> หลักสูตรที่ท่านจะสอบปี 69</label>
   <select id="problem" name="problem" class="form-control" required>
     <option value="">กรุณาเลือกหลักสูตร</option>
-<!--     <option value="PC69">PC เตรียมความพร้อม</option> -->
+    <option value="PC69">PC เตรียมความพร้อม</option>
 <!--     <option value="FC69">FC ระดับต้น</option> -->
-    <option value="IC69">IC ระดับกลาง</option>
+    <option value="IC69" disabled>IC ระดับกลาง (ไม่เปิดรับสมัคร)</option>
 <!--     <option value="AC69">AC ระดับสูง</option> -->
   </select>
   <div class="invalid-feedback">
