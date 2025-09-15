@@ -160,10 +160,10 @@
     <i class="fa-solid fa-lock"></i> หลักสูตรที่ท่านจะสอบปี 69</label>
   <select id="problem" name="problem" class="form-control" required>
     <option value="">กรุณาเลือกหลักสูตร</option>
-    <option value="PC69">PC เตรียมความพร้อม</option>
+    <option value="PC69" disabled>PC เตรียมความพร้อม</option>
 <!--     <option value="FC69">FC ระดับต้น</option> -->
     <option value="IC69" disabled>IC ระดับกลาง (ปิดรับสมัครชั่วคราว)</option>
-<!--     <option value="AC69">AC ระดับสูง</option> -->
+    <option value="AC69">AC ระดับสูง</option>
   </select>
   <div class="invalid-feedback">
     กรุณาเลือกหลักสูตรที่ท่านจะสอบ
@@ -172,10 +172,10 @@
 
         <div class="col-12">
           <label for="examOrder">
-            <i class="fa-solid fa-trophy"></i> สอบ A1/PC มากี่ครั้ง</label>
-          <input type="text" id="examOrder" name="examOrder" class="form-control" placeholder="กรุณากรอกจำนวนครั้ง" required>
+            <i class="fa-solid fa-trophy"></i> ลำดับที่สอบผ่าน(หลักสูตรล่าสุด)</label>
+          <input type="text" id="examOrder" name="examOrder" class="form-control" placeholder="กรุณากรอกลำดับ" required>
           <div class="invalid-feedback">
-            กรุณากรอกจำนวนครั้ง
+            กรุณากรอกลำดับที่สอบผ่าน(หลักสูตรล่าสุด)
           </div>
         </div>
 
