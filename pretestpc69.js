@@ -373,7 +373,7 @@
                         // console.log("Fetched Questions Data:", data); // Log the fetched data
 
                         // Process and display questions
-                        state.questions = getRandomQuestions(data, 50);
+                        state.questions = getRandomQuestions(data, 10);
                         state.lesson = subjectId;
                         // console.log("Selected Questions:", state.lesson); // Log the selected questions
 
