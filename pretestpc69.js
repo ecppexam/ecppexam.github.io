@@ -392,7 +392,7 @@
 //         function fetchQuestions(subjectId) {
 //             const lesson = 'พรบ.การจัดซื้อจัดจ้างและการบริหารพัสดุภาครัฐและกฎหมายลำดับรอง(ระดับต้น)' ;
 //             try {
-//                 const response = fetch(`https://script.google.com/macros/s/AKfycbyrm59LjB85rWLZD5GOQe7R4wjdCO_PkLv0bHtXB8k_hxIWVYF5gfpOEwJNDnTjcCK6fg/exec?lesson=${encodeURIComponent(subjectId)}`);
+//                 const response = fetch(`https://script.google.com/macros/s/AKfycbwjtjMGHdd7_EDWUvkCXlsJPoSipaj4w895OBqgPHgF34P987mU1ScA7KnNY3pO5AH7/exec?lesson=${encodeURIComponent(subjectId)}`);
 //                 if (!response.ok) throw new Error('Network response was not ok');
                 
 //                 const data = response.json();
@@ -567,7 +567,7 @@
     
 
 // URL of your Google Apps Script Web App
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbw1-SKokXt3gSdJuvjxlUYycgW9T0qxJndasQCukLPKT9cA3yJlsG-EQ-U1xYR2igU/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyT9ybGy5zOTd55RdAglddfPkTjaV8hJWXPGDWhczNcn8el2yaJujL0eGClMUc8-Xc/exec';
 
 async function loadSubjects() {
     // Show the loading spinner
