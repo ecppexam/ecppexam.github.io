@@ -569,13 +569,14 @@
 // URL of your Google Apps Script Web App
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyT9ybGy5zOTd55RdAglddfPkTjaV8hJWXPGDWhczNcn8el2yaJujL0eGClMUc8-Xc/exec';
 
-async function loadSubjects() {
+async function loadSubjects(userId) {
     // Show the loading spinner
     document.getElementById('loadingScreen3').classList.remove('hidden');
 
     try {
-        // Fetch subjects from the Google Sheet
-        const response = await fetch(SHEET_API_URL);
+        // Fetch subjects from the Google Sheet with userId
+        const url = `${SHEET_API_URL}?userId=${encodeURIComponent(userId)}`;
+        const response = await fetch(url);
         const data = await response.json();
 
         // Container for subject buttons
