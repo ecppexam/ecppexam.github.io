@@ -2,6 +2,7 @@
         const LIFF_ID = "2006496555-aRYLR5EA";
         const state = {
             userProfile: null,
+            userId: null, // เพิ่มตรงนี้
             questions: [],
             currentQuestionIndex: 0,
             score: 0,
