@@ -248,43 +248,7 @@
           }
         }
           
-          // {
-          //   type: "bubble",
-          //   hero: {
-          //     type: "image",
-          //     url: state.userProfile.pictureUrl || "https://i.pinimg.com/originals/be/04/0f/be040f35f073adc3a48c1fba489d2bc4.gif",
-          //     size: "full",
-          //     aspectRatio: "1:1",
-          //     aspectMode: "cover"
-          //   },
-          //   body: {
-          //     type: "box",
-          //     layout: "vertical",
-          //     contents: [
-          //       {
-          //         type: "text",
-          //         text: state.userProfile.displayName,
-          //         weight: "bold",
-          //         size: "xl",
-          //         color: "#1a237e"
-          //       },
-          //       {
-          //         type: "text",
-          //         text: `คะแนนของคุณ : ${state.score}/${state.questions.length}`,
-          //         size: "md",
-          //         color: state.score >= 6 ? "#4CAF50" : "#FF9800",
-          //         margin: "md"
-          //       },
-          //       {
-          //         type: "text",
-          //         text: `${state.score >= 6 ? "ยินดีด้วย! คุณผ่านการทดสอบ" : "พยายามอีกครั้ง คุณทำได้!"}`,
-          //         size: "sm",
-          //         color: "#666666",
-          //         margin: "md"
-          //       }
-          //     ]
-          //   }
-          // }
+       
           
           
         };
@@ -389,28 +353,6 @@
                     });
             }
 
-
-//         function fetchQuestions(subjectId) {
-//             const lesson = 'พรบ.การจัดซื้อจัดจ้างและการบริหารพัสดุภาครัฐและกฎหมายลำดับรอง(ระดับต้น)' ;
-//             try {
-//                 const response = fetch(`https://script.google.com/macros/s/AKfycbwjtjMGHdd7_EDWUvkCXlsJPoSipaj4w895OBqgPHgF34P987mU1ScA7KnNY3pO5AH7/exec?lesson=${encodeURIComponent(subjectId)}`);
-//                 if (!response.ok) throw new Error('Network response was not ok');
-                
-//                 const data = response.json();
-//                 state.questions = getRandomQuestions(data, 10);
-//                 // state.questions = data;
-//                 // document.getElementById('loadingScreen2').classList.add('hidden');
-//                 document.getElementById('loadingScreen').classList.add('hidden');
-                
-//                 document.getElementById('quizContainer').classList.remove('hidden');
-                
-//                 displayQuestion();
-//             } catch (error) {
-//                 console.error('Error fetching questions:', error);
-//                 showError('ไม่สามารถโหลดข้อสอบได้ กรุณาลองใหม่อีกครั้ง');
-//             }
-//         }
-      
        async function sendToGoogleSheet(userId, name, email, lesson, score) {
         try {
           const response = await fetch('https://script.google.com/macros/s/AKfycbyrm59LjB85rWLZD5GOQe7R4wjdCO_PkLv0bHtXB8k_hxIWVYF5gfpOEwJNDnTjcCK6fg/exec', {
@@ -441,30 +383,6 @@
         }
       }
 
-        // function checkIfAlreadyTaken(userId) {
-        //     const previousResult = JSON.parse(localStorage.getItem(userId));
-        //     if (previousResult) {
-        //         Swal.fire({
-        //             title: 'คุณทำข้อสอบนี้แล้ว',
-        //             html: `
-        //                 <p>คะแนนของคุณคือ: <strong>${previousResult.score}/10</strong></p>
-        //                 <p class="mt-2">คุณต้องการทำข้อสอบนี้อีกครั้งหรือไม่?</p>
-        //             `,
-        //             icon: 'info',
-        //             showCancelButton: true,
-        //             confirmButtonText: 'ทำอีกครั้ง',
-        //             cancelButtonText: 'ปิด',
-        //             reverseButtons: true
-        //         }).then((result) => {
-        //             if (result.isConfirmed) {
-        //                 localStorage.removeItem(userId);
-        //                 window.location.reload();
-        //             } else {
-        //                 liff.closeWindow();
-        //             }
-        //         });
-        //     }
-        // }
         
          function restartQuiz() {
             state.currentQuestionIndex = 0;
@@ -584,14 +502,7 @@ async function loadSubjects(userId) {
         const container = document.getElementById('subjectButtonsContainer');
         container.innerHTML = ''; // เคลียร์เนื้อหาเดิม
 
-        // Create a button for each subject
-        // data.subjects.forEach(subject => {
-        //     const button = document.createElement('button');
-        //     button.className = 'button mb-4 px-6 py-3 bg-indigo-600 text-white rounded-lg';
-        //     button.innerText = subject.name;
-        //     button.onclick = () => selectSubject(subject.name);
-        //     subjectButtonsContainer.appendChild(button);
-        // });
+    
       
          // สร้าง wrapper div สำหรับ flex layout
     const wrapper = document.createElement('div');
