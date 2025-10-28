@@ -2,7 +2,8 @@
 // CONFIGURATION
 // =====================================================
 const CONFIG = {
-    LIFF_ID: "2004722900-27YqP7Qk",
+    // LIFF_ID: "2004722900-27YqP7Qk",
+    LIFF_ID: "2006496555-aRYLR5EA",
     SHEET_API_URL: 'https://script.google.com/macros/s/AKfycbwZvq4tvkdJPxlKABj0Dut1ljYCLSQhlL6nypoVQlPINbg3PF25-AjRxEpkp1N4xMCh/exec',
     QUESTIONS_API_URL: 'https://script.google.com/macros/s/AKfycbwjtjMGHdd7_EDWUvkCXlsJPoSipaj4w895OBqgPHgF34P987mU1ScA7KnNY3pO5AH7/exec',
     SAVE_SCORE_API_URL: 'https://script.google.com/macros/s/AKfycbyrm59LjB85rWLZD5GOQe7R4wjdCO_PkLv0bHtXB8k_hxIWVYF5gfpOEwJNDnTjcCK6fg/exec',
