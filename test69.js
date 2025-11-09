@@ -190,7 +190,7 @@ const QuizController = {
         });
     },
 
-    async showResults() {
+async showResults() {
         this.calculateScore();
         
         Utils.showElement('loadingScreen2');
@@ -242,36 +242,36 @@ const QuizController = {
 
         if (wrongAnswers.length === 0) {
             container.innerHTML = `
-                <div class="text-center py-8">
-                    <div class="text-6xl mb-4">🎉</div>
-                    <p class="text-xl font-bold text-green-600">ยินดีด้วย! คุณทำถูกทุกข้อ</p>
+                <div class="perfect-score">
+                    <div class="emoji">🎉</div>
+                    <p class="message">ยินดีด้วย! คุณทำถูกทุกข้อ</p>
                 </div>
             `;
         } else {
             container.innerHTML = `
-                <div class="mb-4">
-                    <h3 class="text-lg font-bold text-red-600 mb-2">📝 ข้อที่ทำผิด (${wrongAnswers.length} ข้อ)</h3>
+                <div style="margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.125rem; font-weight: bold; color: #dc2626; margin-bottom: 0.5rem;">
+                        📝 ข้อที่ทำผิด (${wrongAnswers.length} ข้อ)
+                    </h3>
                 </div>
                 ${wrongAnswers.map(item => `
-                    <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                        <p class="font-semibold text-gray-800 mb-3">
-                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded">ข้อ ${item.questionNumber}</span>
+                    <div class="wrong-answer-item">
+                        <p class="question-text">
+                            <span class="question-number">ข้อ ${item.questionNumber}</span>
                             ${item.question}
                         </p>
-                        <div class="space-y-2">
-                            <div class="flex items-start">
-                                <span class="text-red-600 mr-2">✗</span>
-                                <div>
-                                    <span class="text-sm text-gray-600">คำตอบของคุณ:</span>
-                                    <p class="text-red-600 font-medium">${item.userAnswer}</p>
-                                </div>
+                        <div class="answer-row wrong">
+                            <span class="icon">✗</span>
+                            <div class="content">
+                                <span class="label">คำตอบของคุณ:</span>
+                                <p class="answer-text">${item.userAnswer}</p>
                             </div>
-                            <div class="flex items-start">
-                                <span class="text-green-600 mr-2">✓</span>
-                                <div>
-                                    <span class="text-sm text-gray-600">เฉลยที่ถูกต้อง:</span>
-                                    <p class="text-green-600 font-medium">${item.correctAnswer}</p>
-                                </div>
+                        </div>
+                        <div class="answer-row correct">
+                            <span class="icon">✓</span>
+                            <div class="content">
+                                <span class="label">เฉลยที่ถูกต้อง:</span>
+                                <p class="answer-text">${item.correctAnswer}</p>
                             </div>
                         </div>
                     </div>
