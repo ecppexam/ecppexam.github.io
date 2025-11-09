@@ -204,6 +204,9 @@ const QuizController = {
             scoreText.textContent = `${state.score}/${state.questions.length}`;
         }
         
+        // Display wrong answers review
+        this.displayWrongAnswers();
+        
         Utils.showElement('scoreCard');
         
         // Save to localStorage
@@ -212,6 +215,68 @@ const QuizController = {
                 name: state.userProfile.displayName,
                 score: state.score
             }));
+        }
+    },
+
+    displayWrongAnswers() {
+        const container = document.getElementById('wrongAnswersContainer');
+        if (!container) return;
+
+        const wrongAnswers = [];
+        
+        state.questions.forEach((question, index) => {
+            const userAnswer = (state.userAnswers[index] || "").trim();
+            const correctAnswers = Array.isArray(question.answer) 
+                ? question.answer.map(ans => ans.trim()) 
+                : [question.answer.trim()];
+            
+            if (!correctAnswers.includes(userAnswer)) {
+                wrongAnswers.push({
+                    questionNumber: index + 1,
+                    question: question.question,
+                    userAnswer: userAnswer || "ไม่ได้ตอบ",
+                    correctAnswer: correctAnswers[0]
+                });
+            }
+        });
+
+        if (wrongAnswers.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="text-6xl mb-4">🎉</div>
+                    <p class="text-xl font-bold text-green-600">ยินดีด้วย! คุณทำถูกทุกข้อ</p>
+                </div>
+            `;
+        } else {
+            container.innerHTML = `
+                <div class="mb-4">
+                    <h3 class="text-lg font-bold text-red-600 mb-2">📝 ข้อที่ทำผิด (${wrongAnswers.length} ข้อ)</h3>
+                </div>
+                ${wrongAnswers.map(item => `
+                    <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <p class="font-semibold text-gray-800 mb-3">
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded">ข้อ ${item.questionNumber}</span>
+                            ${item.question}
+                        </p>
+                        <div class="space-y-2">
+                            <div class="flex items-start">
+                                <span class="text-red-600 mr-2">✗</span>
+                                <div>
+                                    <span class="text-sm text-gray-600">คำตอบของคุณ:</span>
+                                    <p class="text-red-600 font-medium">${item.userAnswer}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-600 mr-2">✓</span>
+                                <div>
+                                    <span class="text-sm text-gray-600">เฉลยที่ถูกต้อง:</span>
+                                    <p class="text-green-600 font-medium">${item.correctAnswer}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            `;
         }
     },
 
