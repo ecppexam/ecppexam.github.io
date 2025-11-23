@@ -205,9 +205,9 @@ async showResults() {
         }
         
         // Display wrong answers review
-        this.displayWrongAnswers();
+        // this.displayWrongAnswers();
         
-        Utils.showElement('scoreCard');
+        // Utils.showElement('scoreCard');
         
         // Save to localStorage
         if (state.userProfile) {
