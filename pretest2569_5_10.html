@@ -10,7 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <!-- Import Custom CSS -->
-    <link rel="stylesheet" href="https://ecppexam.github.io/pretestic69.css">
+    <!-- <link rel="stylesheet" href="https://ecppexam.github.io/pretestic69.css"> -->
+    <link rel="stylesheet" href="https://ecppexam.github.io/test69.css">
     
 </head>
 <body class="py-8 px-4 sm:px-6 lg:px-8">
@@ -107,30 +108,40 @@
           </div>
         <!-- Score Card -->
         <div id="scoreCard" class="quiz-card rounded-2xl shadow-xl p-8 mt-6 hidden animate-fade">
-          
+         <!-- <div id="scoreCard" class="hidden">  -->
             <div class="text-center">
                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
                     <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">ผลคะแนนของคุณ</h2>
-                <p class="text-4xl font-bold text-indigo-600 mb-4" id="scoreText">0/10</p>
+                <h2 class="text-2xl font-bold text-white-800 mb-2">ผลคะแนนของคุณ</h2>
+                <p class="text-4xl font-bold text-white-600 mb-4" id="scoreText">0/10</p>
                 <div class="space-y-4">
-                    <button onclick="restartQuiz()" 
+                    <!-- <button onclick="restartQuiz()" 
                             class="button w-full px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors">
                         เริ่มทำแบบทดสอบใหม่
-                    </button>
+                    </button> -->
 <!--                     <button onclick="shareResults()" 
                             class="button w-full px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">
                         แชร์ผลคะแนน
                     </button> -->
+
+                      <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8">      
+                    
+                    <!-- Wrong Answers Section -->
+                    <div id="wrongAnswersContainer" class="mb-6 max-h-96 overflow-y-auto"></div>
+                            
+                    </div>
+                    
                     <button onclick="restartPages()" 
                             class="button w-full px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">
-                        เลือกวิชาใหม่
+                        ทำข้อสอบอีกครั้ง
                     </button>
                 </div>
             </div>
+             
+</div>
           
         </div>
         
