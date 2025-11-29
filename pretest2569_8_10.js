@@ -5,7 +5,7 @@ const CONFIG = {
     
     LIFF_ID: "2008553229-3oNAayzR",
     SHEET_API_URL: 'https://script.google.com/macros/s/AKfycbwZvq4tvkdJPxlKABj0Dut1ljYCLSQhlL6nypoVQlPINbg3PF25-AjRxEpkp1N4xMCh/exec',
-    QUESTIONS_API_URL: 'https://script.google.com/macros/s/AKfycbyEGecABBOETRpo2R1Gtzg0YwgQJjwx8TKZtE-7ke_HfIDzmMCmtYJn2nj5c4Qagwi3KQ/exec',
+    QUESTIONS_API_URL: 'https://script.google.com/macros/s/AKfycbxowAYlsXxaHsrYRxrPBuhVE8s7o9C6xoixi0Cm9utHyytOw7zWhlTjg8rb6EK2N618cg/exec',
     SAVE_SCORE_API_URL: 'https://script.google.com/macros/s/AKfycbyrm59LjB85rWLZD5GOQe7R4wjdCO_PkLv0bHtXB8k_hxIWVYF5gfpOEwJNDnTjcCK6fg/exec',
     NUM_QUESTIONS: 10,
     LOADING_DELAY: 4000,
