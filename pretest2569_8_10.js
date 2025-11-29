@@ -224,6 +224,68 @@ async showResults() {
         }
     },
 
+    displayWrongAnswers() {
+        const container = document.getElementById('wrongAnswersContainer');
+        if (!container) return;
+
+        const wrongAnswers = [];
+        
+        state.questions.forEach((question, index) => {
+            const userAnswer = (state.userAnswers[index] || "").trim();
+            const correctAnswers = Array.isArray(question.answer) 
+                ? question.answer.map(ans => ans.trim()) 
+                : [question.answer.trim()];
+            
+            if (!correctAnswers.includes(userAnswer)) {
+                wrongAnswers.push({
+                    questionNumber: index + 1,
+                    question: question.question,
+                    userAnswer: userAnswer || "ไม่ได้ตอบ",
+                    correctAnswer: correctAnswers[0]
+                });
+            }
+        });
+
+        if (wrongAnswers.length === 0) {
+            container.innerHTML = `
+                <div class="perfect-score">
+                    <div class="emoji">🎉</div>
+                    <p class="message">ยินดีด้วย! คุณทำถูกทุกข้อ</p>
+                </div>
+            `;
+        } else {
+            container.innerHTML = `
+                <div style="margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.125rem; font-weight: bold; color: #dc2626; margin-bottom: 0.5rem;">
+                        📝 ข้อที่ทำผิด (${wrongAnswers.length} ข้อ)
+                    </h3>
+                </div>
+                ${wrongAnswers.map(item => `
+                    <div class="wrong-answer-item">
+                        <p class="question-text">
+                            <span class="question-number">ข้อ ${item.questionNumber}</span>
+                            ${item.question}
+                        </p>
+                        <div class="answer-row wrong">
+                            <span class="icon">✗</span>
+                            <div class="content">
+                                <span class="label">คำตอบของคุณ:</span>
+                                <p class="answer-text">${item.userAnswer}</p>
+                            </div>
+                        </div>
+                        <div class="answer-row correct">
+                            <span class="icon">✓</span>
+                            <div class="content">
+                                <span class="label">เฉลยที่ถูกต้อง:</span>
+                                <p class="answer-text">${item.correctAnswer}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+        }
+    },
+
     async submitQuiz() {
         if (!state.userAnswers[state.currentQuestionIndex]) {
             UI.showAlert('คำเตือน', 'กรุณาเลือกคำตอบก่อนส่ง', 'warning');
