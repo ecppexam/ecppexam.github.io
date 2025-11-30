@@ -1,28 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ecpp2025</title>
- <!-- font-awesome@6.2.0 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    
-    <!-- jquery@3.6.0 -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
+  <title>สั่งซื้อคู่มือ e-CPP 2025</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link href="https://fastly.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@200;300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai');
-
     * {
       box-sizing: border-box;
       font-family: 'Noto Sans Thai', sans-serif;
@@ -30,197 +21,558 @@
     body {
       background: rgb(252, 233, 233);
       background: linear-gradient(0deg, rgba(252, 233, 233, 1) 0%, rgba(224, 244, 241, 1) 26%, rgba(255, 255, 255, 1) 71%);
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
       background-size: cover;
-      background-color: skyblue;
+      min-height: 100vh;
     }
-
     .list {
       background-color: #ffffff;
       padding: 1.8em 1.2em;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       border-radius: 0.6em;
     }
-
-    .qBox {
-      border: solid 2px #525150 !important;
+    .book-card {
+      border: solid 2px #e0e0e0;
       padding: 1rem;
-      margin: 0 10px;
       border-radius: 13px;
-      max-width: 100%;
-      margin: auto;
+      margin-bottom: 1rem;
+      background-color: #f9f9f9;
+      transition: all 0.3s ease;
     }
-
+    .book-card:hover {
+      border-color: #b26bc2;
+      box-shadow: 0 4px 12px rgba(178, 107, 194, 0.2);
+    }
+    .book-card.selected {
+      border-color: #b26bc2;
+      background-color: #f3e5f5;
+    }
+    .book-title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+    .book-price {
+      color: #b26bc2;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .quantity-control button {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 2px solid #b26bc2;
+      background-color: white;
+      color: #b26bc2;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quantity-control button:hover {
+      background-color: #b26bc2;
+      color: white;
+    }
+    .quantity-control input {
+      width: 60px;
+      text-align: center;
+      border: 2px solid #e0e0e0;
+      border-radius: 5px;
+      padding: 0.3rem;
+    }
+    .total-section {
+      background-color: #f3e5f5;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      border: 2px solid #b26bc2;
+    }
+    .total-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #b26bc2;
+    }
     label {
       color: black;
+      font-weight: 500;
     }
-
     .container {
-      max-width: 600px;
+      max-width: 700px;
     }
-
     button[type="submit"] {
-      font-family: 'Noto Sans Thai', sans-serif;
-      box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
       width: 100%;
-      margin: 0 auto;
       margin-top: 10px;
-      padding: 3%;
+      padding: 15px;
       background: #b26bc2;
       border: none;
-      border-radius: 5px;
-      font-size: 17px;
-      border-top-style: none;
-      border-right-style: none;
-      border-left-style: none;
+      border-radius: 8px;
+      font-size: 18px;
       color: #fff;
       cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
     }
-
     button[type="submit"]:hover {
-      background: #FFCE00;
-      color: #000;
+      background: #9c4eb3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(178, 107, 194, 0.4);
     }
-
-    option:disabled {
-      color: #999999 !important;
-      background-color: #f0f0f0 !important;
+    .shipping-option {
+      border: 2px solid #e0e0e0;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
     }
-
-    .batch-selection {
-      display: none;
+    .shipping-option:hover {
+      border-color: #b26bc2;
+    }
+    .shipping-option.selected {
+      border-color: #b26bc2;
+      background-color: #f3e5f5;
+    }
+    .shipping-option input[type="radio"] {
+      margin-right: 10px;
+    }
+    .book-description {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0.3rem;
     }
   </style>
 </head>
-
 <body>
   <center>
     <br />
-    
     <img src="https://lh3.googleusercontent.com/d/1uP_Qb7Yv69rp-X8SAFOr-A0uqmRJAbs7"
-      style="width:200px; height:auto; padding-bottom: 10px; ">
+      style="width:200px; height:auto; padding-bottom: 10px;">
     <div class="form-group mb-2">
       <label for="searchtext">
-        <h3>ระบบลงทะเบียน</h3>
+        <h3><i class="fa-solid fa-book"></i> ระบบสั่งซื้อคู่มือหลักสูตร</h3>
       </label>
     </div>
   </center>
-
+  
   <div class="container list">
-    <form id="myForm" class="needs-validation" novalidate>
-      <div class="row justify-content-start g-3">
+    <form id="orderForm" class="needs-validation" novalidate>
+      
+      <!-- ส่วนเลือกหนังสือ -->
+      <div class="row g-3">
+        <div class="col-12">
+          <h5 class="mb-3"><i class="fa-solid fa-shopping-cart"></i> เลือกคู่มือที่ต้องการสั่งซื้อ</h5>
+          
+          <div class="book-card" data-book="PC" data-price="450">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="flex-grow-1">
+                <div class="book-title">
+                  <i class="fa-solid fa-book-open"></i> คู่มือ PC (เตรียมความพร้อม)
+                </div>
+                <div class="book-description">หนังสือเตรียมสอบหลักสูตรระดับเตรียมความพร้อม</div>
+                <div class="book-price">฿450</div>
+              </div>
+              <div class="quantity-control">
+                <button type="button" class="btn-minus" data-book="PC">-</button>
+                <input type="number" class="quantity-input" data-book="PC" value="0" min="0" readonly>
+                <button type="button" class="btn-plus" data-book="PC">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="book-card" data-book="FC" data-price="550">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="flex-grow-1">
+                <div class="book-title">
+                  <i class="fa-solid fa-book-open"></i> คู่มือ FC (ระดับต้น)
+                </div>
+                <div class="book-description">หนังสือเตรียมสอบหลักสูตรระดับต้น</div>
+                <div class="book-price">฿550</div>
+              </div>
+              <div class="quantity-control">
+                <button type="button" class="btn-minus" data-book="FC">-</button>
+                <input type="number" class="quantity-input" data-book="FC" value="0" min="0" readonly>
+                <button type="button" class="btn-plus" data-book="FC">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="book-card" data-book="IC" data-price="650">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="flex-grow-1">
+                <div class="book-title">
+                  <i class="fa-solid fa-book-open"></i> คู่มือ IC (ระดับกลาง)
+                </div>
+                <div class="book-description">หนังสือเตรียมสอบหลักสูตรระดับกลาง</div>
+                <div class="book-price">฿650</div>
+              </div>
+              <div class="quantity-control">
+                <button type="button" class="btn-minus" data-book="IC">-</button>
+                <input type="number" class="quantity-input" data-book="IC" value="0" min="0" readonly>
+                <button type="button" class="btn-plus" data-book="IC">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="book-card" data-book="AC" data-price="750">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="flex-grow-1">
+                <div class="book-title">
+                  <i class="fa-solid fa-book-open"></i> คู่มือ AC (ระดับสูง)
+                </div>
+                <div class="book-description">หนังสือเตรียมสอบหลักสูตรระดับสูง</div>
+                <div class="book-price">฿750</div>
+              </div>
+              <div class="quantity-control">
+                <button type="button" class="btn-minus" data-book="AC">-</button>
+                <input type="number" class="quantity-input" data-book="AC" value="0" min="0" readonly>
+                <button type="button" class="btn-plus" data-book="AC">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ส่วนสรุปยอดรวม -->
+        <div class="col-12">
+          <div class="total-section">
+            <div class="d-flex justify-content-between mb-2">
+              <span>ยอดรวมหนังสือ:</span>
+              <span class="fw-bold" id="bookTotal">฿0</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>ค่าจัดส่ง:</span>
+              <span class="fw-bold" id="shippingCost">฿0</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+              <span class="total-price">ยอดรวมทั้งหมด:</span>
+              <span class="total-price" id="grandTotal">฿0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ส่วนข้อมูลผู้สั่งซื้อ -->
+        <div class="col-12">
+          <h5 class="mb-3 mt-3"><i class="fa-solid fa-user"></i> ข้อมูลผู้สั่งซื้อ</h5>
+        </div>
+
         <div class="col-12">
           <label for="name">
-            <i class="fa-solid fa-user"></i> ชื่อ-สกุล</label>
+            <i class="fa-solid fa-user"></i> ชื่อ-สกุล <span class="text-danger">*</span></label>
           <input type="text" id="name" name="name" class="form-control" placeholder="ชื่อ-สกุล" required>
-          <div class="invalid-feedback">
-            กรุณากรอกชื่อ-สกุล
-          </div>
+          <div class="invalid-feedback">กรุณากรอกชื่อ-สกุล</div>
         </div>
-        
-         <div class="col-12">
-          <label for="device">
-            <i class="fa-regular fa-circle-user"></i> สังกัดหน่วยงาน</label>
-          <input type="text" id="device" name="device" class="form-control" placeholder="กรุณากรอกสังกัดของท่าน" required>
-          <div class="invalid-feedback">
-            กรุณากรอกสังกัดของท่าน
-          </div>
-        </div>
-        
+
         <div class="col-12">
           <label for="phone">
-            <i class="fa-solid fa-phone"></i> เบอร์โทร</label>
-          <input type="text" id="phone" name="phone" maxlength="10" class="form-control" placeholder="กรุณาใส่เบอร์โทรของท่าน"
-            required>
-          <div class="invalid-feedback">
-            กรุณากรอกเบอร์โทรของท่าน
-          </div>
+            <i class="fa-solid fa-phone"></i> เบอร์โทรศัพท์ <span class="text-danger">*</span></label>
+          <input type="tel" id="phone" name="phone" maxlength="10" class="form-control" placeholder="0812345678" required>
+          <div class="invalid-feedback">กรุณากรอกเบอร์โทรศัพท์</div>
         </div>
 
         <div class="col-12">
-          <label for="place">
-            <i class="fa-solid fa-envelope"></i> อีเมล</label>
-          <input type="email" id="place" name="place" class="form-control" placeholder="กรุณากรอก Email" required>
-          <div class="invalid-feedback">
-            กรุณากรอกอีเมล
-          </div>
-        </div>
-           
-        <div class="col-12">
-          <label for="problem">
-            <i class="fa-solid fa-lock"></i> หลักสูตรที่ท่านจะสอบปี 69</label>
-          <select id="problem" name="problem" class="form-control" required>
-            <option value="">กรุณาเลือกหลักสูตร</option>
-            <option value="PC69">PC เตรียมความพร้อม</option>
-            <option value="FC69">FC ระดับต้น</option>
-            <option value="IC69">IC ระดับกลาง</option>
-            <option value="AC69">AC ระดับสูง</option>
-          </select>
-          <div class="invalid-feedback">
-            กรุณาเลือกหลักสูตรที่ท่านจะสอบ
-          </div>
+          <label for="email">
+            <i class="fa-solid fa-envelope"></i> อีเมล <span class="text-danger">*</span></label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="example@email.com" required>
+          <div class="invalid-feedback">กรุณากรอกอีเมล</div>
         </div>
 
-        <div class="col-12 batch-selection" id="batchSelection">
-          <label for="batch">
-            <i class="fa-solid fa-list-ol"></i> เลือกรุ่น</label>
-          <select id="batch" name="batch" class="form-control">
-            <option value="">กรุณาเลือกรุ่น</option>
-            <option value="รุ่น 1">รุ่น 1</option>
-            <option value="รุ่น 2">รุ่น 2</option>
-          </select>
-          <div class="invalid-feedback">
-            กรุณาเลือกรุ่น
-          </div>
+        <!-- ส่วนที่อยู่จัดส่ง -->
+        <div class="col-12">
+          <h5 class="mb-3 mt-3"><i class="fa-solid fa-truck"></i> ที่อยู่จัดส่ง</h5>
         </div>
 
         <div class="col-12">
-          <label for="examOrder">
-            <i class="fa-solid fa-trophy"></i> ลำดับที่สอบผ่าน(หลักสูตรล่าสุด)</label>
-          <input type="text" id="examOrder" name="examOrder" class="form-control" placeholder="กรุณากรอกลำดับ" required>
-          <div class="invalid-feedback">
-            กรุณากรอกลำดับที่สอบผ่าน(หลักสูตรล่าสุด)
-          </div>
+          <label for="address">
+            <i class="fa-solid fa-location-dot"></i> ที่อยู่ <span class="text-danger">*</span></label>
+          <textarea id="address" name="address" class="form-control" rows="3" placeholder="บ้านเลขที่ ถนน ซอย" required></textarea>
+          <div class="invalid-feedback">กรุณากรอกที่อยู่</div>
         </div>
 
+        <div class="col-md-6">
+          <label for="district">
+            <i class="fa-solid fa-map-pin"></i> แขวง/ตำบล <span class="text-danger">*</span></label>
+          <input type="text" id="district" name="district" class="form-control" placeholder="แขวง/ตำบล" required>
+          <div class="invalid-feedback">กรุณากรอกแขวง/ตำบล</div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="amphoe">
+            <i class="fa-solid fa-map-pin"></i> เขต/อำเภอ <span class="text-danger">*</span></label>
+          <input type="text" id="amphoe" name="amphoe" class="form-control" placeholder="เขต/อำเภอ" required>
+          <div class="invalid-feedback">กรุณากรอกเขต/อำเภอ</div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="province">
+            <i class="fa-solid fa-map"></i> จังหวัด <span class="text-danger">*</span></label>
+          <input type="text" id="province" name="province" class="form-control" placeholder="จังหวัด" required>
+          <div class="invalid-feedback">กรุณากรอกจังหวัด</div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="postcode">
+            <i class="fa-solid fa-mailbox"></i> รหัสไปรษณีย์ <span class="text-danger">*</span></label>
+          <input type="text" id="postcode" name="postcode" maxlength="5" class="form-control" placeholder="10100" required>
+          <div class="invalid-feedback">กรุณากรอกรหัสไปรษณีย์</div>
+        </div>
+
+        <!-- ส่วนเลือกวิธีจัดส่ง -->
         <div class="col-12">
-          <label for="place">
-            <i class="fa-solid fa-file"></i> อัพโหลดรูปประจำตัวของท่าน</label>
-          <input type="file" id="file" class="form-control">
-          <div class="invalid-feedback">
-            กรุณาอัพโหลดรูปประจำตัว
+          <h5 class="mb-3 mt-3"><i class="fa-solid fa-shipping-fast"></i> วิธีการจัดส่ง</h5>
+          
+          <div class="shipping-option" data-shipping="kerry" data-cost="50">
+            <input type="radio" name="shipping" id="kerry" value="Kerry Express - ฿50" required>
+            <label for="kerry" class="mb-0">
+              <strong>Kerry Express</strong> - ฿50
+              <div class="small text-muted">จัดส่งภายใน 2-3 วันทำการ</div>
+            </label>
           </div>
+
+          <div class="shipping-option" data-shipping="thaipost" data-cost="35">
+            <input type="radio" name="shipping" id="thaipost" value="ไปรษณีย์ไทย EMS - ฿35" required>
+            <label for="thaipost" class="mb-0">
+              <strong>ไปรษณีย์ไทย EMS</strong> - ฿35
+              <div class="small text-muted">จัดส่งภายใน 3-5 วันทำการ</div>
+            </label>
+          </div>
+
+          <div class="shipping-option" data-shipping="jandt" data-cost="45">
+            <input type="radio" name="shipping" id="jandt" value="J&T Express - ฿45" required>
+            <label for="jandt" class="mb-0">
+              <strong>J&T Express</strong> - ฿45
+              <div class="small text-muted">จัดส่งภายใน 2-4 วันทำการ</div>
+            </label>
+          </div>
+          <div class="invalid-feedback">กรุณาเลือกวิธีการจัดส่ง</div>
+        </div>
+
+        <!-- หมายเหตุ -->
+        <div class="col-12">
+          <label for="note">
+            <i class="fa-solid fa-comment"></i> หมายเหตุ (ถ้ามี)</label>
+          <textarea id="note" name="note" class="form-control" rows="2" placeholder="ข้อความถึงผู้ขาย..."></textarea>
         </div>
 
         <div class="col-12 text-center">
-          <button type="submit" class="btn btn-warning w-100"><i class="bi bi-send-fill"></i>&nbsp;ลงทะเบียน</button>
+          <button type="submit" class="btn btn-warning">
+            <i class="bi bi-cart-check-fill"></i> ยืนยันการสั่งซื้อ
+          </button>
         </div>
       </div>
     </form>
   </div>
+
+  <br />
+  <div class="text-center p-4 col-12 mt-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    น้องพัสดุ ติวสอบ e-CPP | ระบบสั่งซื้อหนังสือคู่มือ
+  </div>
+
   <script>
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbzAWlzUbRqPUUFLEH7rqoRMTaZecOcQmWJ48kQMqHRc1JAa2P9yPH2EWlPtIk2UXbHo/exec'
-    var uid
+    
+    const bookPrices = {
+      'PC': 450,
+      'FC': 550,
+      'IC': 650,
+      'AC': 750
+    };
 
-    // Handle course selection change
-    $('#problem').on('change', function() {
-      const selectedCourse = $(this).val();
-      const batchSelection = $('#batchSelection');
-      const batchInput = $('#batch');
-      
-      if (selectedCourse === 'PC69') {
-        batchSelection.show();
-        batchInput.attr('required', true);
-      } else {
-        batchSelection.hide();
-        batchInput.attr('required', false);
-        batchInput.val('');
+    // จัดการปุ่มเพิ่ม/ลดจำนวน
+    $('.btn-plus').click(function() {
+      const book = $(this).data('book');
+      const input = $(`.quantity-input[data-book="${book}"]`);
+      const currentVal = parseInt(input.val());
+      input.val(currentVal + 1);
+      updateBookCard(book);
+      calculateTotal();
+    });
+
+    $('.btn-minus').click(function() {
+      const book = $(this).data('book');
+      const input = $(`.quantity-input[data-book="${book}"]`);
+      const currentVal = parseInt(input.val());
+      if (currentVal > 0) {
+        input.val(currentVal - 1);
+        updateBookCard(book);
+        calculateTotal();
       }
     });
+
+    function updateBookCard(book) {
+      const quantity = parseInt($(`.quantity-input[data-book="${book}"]`).val());
+      const card = $(`.book-card[data-book="${book}"]`);
+      
+      if (quantity > 0) {
+        card.addClass('selected');
+      } else {
+        card.removeClass('selected');
+      }
+    }
+
+    // จัดการการเลือกวิธีจัดส่ง
+    $('.shipping-option').click(function() {
+      $('.shipping-option').removeClass('selected');
+      $(this).addClass('selected');
+      $(this).find('input[type="radio"]').prop('checked', true);
+      calculateTotal();
+    });
+
+    $('input[name="shipping"]').change(function() {
+      calculateTotal();
+    });
+
+    function calculateTotal() {
+      let bookTotal = 0;
+      
+      // คำนวณยอดหนังสือ
+      $('.quantity-input').each(function() {
+        const book = $(this).data('book');
+        const quantity = parseInt($(this).val());
+        const price = bookPrices[book];
+        bookTotal += (quantity * price);
+      });
+
+      // คำนวณค่าจัดส่ง
+      let shippingCost = 0;
+      const selectedShipping = $('.shipping-option.selected');
+      if (selectedShipping.length > 0) {
+        shippingCost = parseInt(selectedShipping.data('cost'));
+      }
+
+      // แสดงยอดรวม
+      $('#bookTotal').text('฿' + bookTotal.toLocaleString());
+      $('#shippingCost').text('฿' + shippingCost.toLocaleString());
+      $('#grandTotal').text('฿' + (bookTotal + shippingCost).toLocaleString());
+    }
+
+    function getOrderSummary() {
+      let summary = [];
+      $('.quantity-input').each(function() {
+        const book = $(this).data('book');
+        const quantity = parseInt($(this).val());
+        if (quantity > 0) {
+          const bookName = $(`.book-card[data-book="${book}"] .book-title`).text().trim();
+          const price = bookPrices[book];
+          summary.push(`${bookName} x${quantity} = ฿${(price * quantity).toLocaleString()}`);
+        }
+      });
+      return summary.join('\n');
+    }
+
+    function validateOrder() {
+      let totalBooks = 0;
+      $('.quantity-input').each(function() {
+        totalBooks += parseInt($(this).val());
+      });
+      
+      if (totalBooks === 0) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'กรุณาเลือกหนังสือ',
+          text: 'กรุณาเลือกหนังสือที่ต้องการสั่งซื้ออย่างน้อย 1 เล่ม',
+          confirmButtonText: 'ตกลง',
+        });
+        return false;
+      }
+      return true;
+    }
+
+    function submit() {
+      if (!validateOrder()) {
+        return;
+      }
+
+      $.LoadingOverlay('show');
+
+      const orderSummary = getOrderSummary();
+      const shipping = $('input[name="shipping"]:checked').val();
+      const fullAddress = `${$('#address').val()} ${$('#district').val()} ${$('#amphoe').val()} ${$('#province').val()} ${$('#postcode').val()}`;
+
+      // รวบรวมข้อมูลหนังสือที่สั่ง
+      let booksOrdered = [];
+      $('.quantity-input').each(function() {
+        const book = $(this).data('book');
+        const quantity = parseInt($(this).val());
+        if (quantity > 0) {
+          booksOrdered.push(`${book}:${quantity}`);
+        }
+      });
+
+      let data = {
+        opt: 'saveorder',
+        uid: liff.getDecodedIDToken().sub,
+        name: $('#name').val(),
+        phone: $('#phone').val(),
+        email: $('#email').val(),
+        address: fullAddress,
+        shipping: shipping,
+        note: $('#note').val(),
+        books: booksOrdered.join(','),
+        orderSummary: orderSummary,
+        bookTotal: $('#bookTotal').text(),
+        shippingCost: $('#shippingCost').text(),
+        grandTotal: $('#grandTotal').text()
+      };
+
+      $.ajax({
+        method: "POST",
+        url: scriptUrl,
+        data: data,
+        dataType: 'json',
+        success: function (res) {
+          $.LoadingOverlay('hide');
+          if (res.status == 'success') {
+            const name = $('#name').val();
+            const total = $('#grandTotal').text();
+            liff.sendMessages([{
+              type: 'text',
+              text: `คำสั่งซื้อของคุณ ${name}\n\n${orderSummary}\nค่าจัดส่ง: ${$('#shippingCost').text()}\nยอดรวม: ${total}\n\nได้รับคำสั่งซื้อเรียบร้อยแล้ว`
+            }])
+            .then(() => {
+              liff.closeWindow();
+            })
+            .catch((err) => {
+              console.error('Error sending message:', err);
+            });
+            
+            $('#orderForm')[0].reset();
+            $('.quantity-input').val(0);
+            $('.book-card').removeClass('selected');
+            $('.shipping-option').removeClass('selected');
+            calculateTotal();
+            
+            return Swal.fire({
+              icon: 'success',
+              title: 'สั่งซื้อสำเร็จ!',
+              text: 'ขอบคุณสำหรับคำสั่งซื้อ เราจะดำเนินการจัดส่งโดยเร็วที่สุด',
+              allowOutsideClick: false,
+              confirmButtonText: 'ตกลง',
+            });
+          }
+          return Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด',
+            text: 'ไม่สามารถบันทึกคำสั่งซื้อได้ กรุณาลองใหม่อีกครั้ง',
+            allowOutsideClick: false,
+            confirmButtonText: 'ตกลง',
+          });
+        },
+        error: function (err) {
+          console.log(err);
+          $.LoadingOverlay('hide');
+          Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด',
+            text: 'ไม่สามารถเชื่อมต่อกับระบบได้ กรุณาลองใหม่อีกครั้ง',
+            confirmButtonText: 'ตกลง',
+          });
+        },
+      });
+    }
 
     $(document).ready(() => {
       liff.init({
@@ -230,106 +582,22 @@
       liff.ready.then(() => {
         console.log('liff ready')
       })
-    })
+    });
 
-    function submit() {
-      $.LoadingOverlay('show');
-
-      const fileInput = $('#file')[0];
-      if (fileInput.files.length === 0) {
-        $.LoadingOverlay('hide');
-        alert('Please select a file.');
-        return;
-      }
-
-      const file = fileInput.files[0];
-      const fr = new FileReader();
-      fr.onload = function (e) {
-        const base64File = e.target.result.replace(/^.*,/, '');
-        
-        const problem = $('#problem').val();
-        const batch = $('#batch').val();
-        let courseInfo = problem;
-        
-        // If PC69 is selected and batch is chosen, combine them
-        if (problem === 'PC69' && batch) {
-          courseInfo = `${problem} - ${batch}`;
-        }
-
-        let data = {
-          opt: 'savedata',
-          uid: liff.getDecodedIDToken().sub,
-          name: $('#name').val(),
-          phone: $('#phone').val(),
-          device: $('#device').val(),
-          problem: courseInfo,
-          place: $('#place').val(),
-          examOrder: $('#examOrder').val(),
-          file: base64File,
-        };
-
-        $.ajax({
-          method: "POST",
-          url: scriptUrl,
-          data: data,
-          dataType: 'json',
-          success: function (res) {
-            $.LoadingOverlay('hide');
-            if (res.status == 'success') {
-              const name = $('#name').val();
-              liff.sendMessages([{
-                type: 'text',
-                text: `คุณ : ${name} หลักสูตร ${courseInfo} ลงทะเบียนเรียบร้อยแล้ว`
-              }])
-              .then(() => {
-                liff.closeWindow();
-              })
-              .catch((err) => {
-                console.error('Error sending message:', err);
-              });
-              $('#myForm')[0].reset();
-              return Swal.fire({
-                icon: 'success',
-                title: 'ลงทะเบียนเรียบร้อย',
-                allowOutsideClick: false,
-                confirmButtonText: 'ตกลง',
-              });
-            }
-            return Swal.fire({
-              icon: 'error',
-              title: 'เกิดข้อผิดพลาด',
-              allowOutsideClick: false,
-              confirmButtonText: 'ตกลง',
-            });
-          },
-          error: function (err) {
-            console.log(err);
-            $.LoadingOverlay('hide');
-            alert('ลงทะเบียนไม่สำเร็จ');
-          },
-        });
-      };
-      fr.readAsDataURL(file);
-    }
-
-  </script>
-  <script>
+    // Form validation
     (() => {
       'use strict'
-
       const forms = document.querySelectorAll('.needs-validation')
-
       Array.from(forms).forEach(form => {
         form.addEventListener('submit', event => {
           event.preventDefault()
           if (!form.checkValidity()) {
             event.stopPropagation()
             form.classList.add('was-validated')
-            $('#myForm').find(":invalid").first().focus();
+            $('#orderForm').find(":invalid").first().focus();
           } else {
             submit()
           }
-
         }, false)
       })
     })()
@@ -339,16 +607,7 @@
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
   <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-  <script src="//fastly.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script
-    src="https://fastly.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
-
-
-  <br />
-  <div class="text-center p-4 col-12 mt-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    น้องพัสดุ ติวสอบ e-CPP
-  </div>
-
+  <script src="https://fastly.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://fastly.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
 </body>
-
 </html>
