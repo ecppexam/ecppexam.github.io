@@ -376,12 +376,12 @@ async showResults() {
                         //     label: "📚 Preorder คู่มือหลักสูตร",
                         //     uri: "https://line.me/R/app/2008591973-xOa2DMmY"
                         //         }
-                             "action": {
-                               "type": "postback",
-                                "label": "📚 Preorder คู่มือหลักสูตร",
-                                "data": "pre_order_69",
-                                "inputOption": "openKeyboard",
-                                "fillInText": "Pre Order คู่มือหลักสูตร"
+                             action: {
+                               type: "postback",
+                                label: "📚 Preorder คู่มือหลักสูตร",
+                                data: "pre_order_69",
+                                inputOption: "openKeyboard",
+                                fillInText: "Pre Order คู่มือหลักสูตร"
                             
                             
                            
