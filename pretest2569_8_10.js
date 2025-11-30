@@ -372,9 +372,11 @@ async showResults() {
                     contents: [{
                         type: "button",
                         action: {
-                            type: "message",
-                            label: "📚 Preorder คู่มือหลักสูตร",
-                            text: "สนใจ Preorder คู่มือหลักสูตร"
+                            type: "postback",
+                            label: "📚 Preorder หนังสือ",
+                            data: "Preorder",
+                            inputOption: "openKeyboard",
+                            fillInText: "Preorder,"
                         },
                         style: "primary",
                         color: "#17c964",
