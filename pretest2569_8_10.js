@@ -366,18 +366,15 @@ async showResults() {
                     }],
                     paddingAll: "0px"
                 },
-                footer: {
+              footer: {
                     type: "box",
                     layout: "vertical",
                     contents: [{
                         type: "button",
                         action: {
-                            type: "text",
+                            type: "message",
                             label: "📚 Preorder คู่มือหลักสูตร",
-                            text: "สั่งจองคู่มือหลักสูตร"
-                        
-                            
-                           
+                            text: "สนใจ Preorder คู่มือหลักสูตร"
                         },
                         style: "primary",
                         color: "#17c964",
