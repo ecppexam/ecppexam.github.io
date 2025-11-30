@@ -373,8 +373,8 @@ async showResults() {
                         type: "button",
                         action: {
                             type: "uri",
-                            label: "📚 Preorder หนังสือ",
-                            uri: "https://line.me/R/ti/p/@yourbookstore"
+                            label: "📚 Preorder คู่มือหลักสูตร",
+                            uri: "https://liff.line.me/2008591973-xOa2DMmY"
                         },
                         style: "primary",
                         color: "#17c964",
