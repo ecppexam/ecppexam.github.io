@@ -365,6 +365,23 @@ async showResults() {
                         paddingAll: "20px"
                     }],
                     paddingAll: "0px"
+                },
+                footer: {
+                    type: "box",
+                    layout: "vertical",
+                    contents: [{
+                        type: "button",
+                        action: {
+                            type: "uri",
+                            label: "📚 Preorder หนังสือ",
+                            uri: "https://line.me/R/ti/p/@yourbookstore"
+                        },
+                        style: "primary",
+                        color: "#17c964",
+                        height: "sm"
+                    }],
+                    spacing: "sm",
+                    paddingAll: "20px"
                 }
             }
         };
