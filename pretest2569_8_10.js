@@ -371,18 +371,11 @@ async showResults() {
                     layout: "vertical",
                     contents: [{
                         type: "button",
-                        // action: {
-                        //     type: "uri",
-                        //     label: "📚 Preorder คู่มือหลักสูตร",
-                        //     uri: "https://line.me/R/app/2008591973-xOa2DMmY"
-                        //         }
-                             action: {
-                               type: "postback",
-                                label: "📚 Preorder คู่มือหลักสูตร",
-                                data: "pre_order_69",
-                                inputOption: "openKeyboard",
-                                fillInText: "Pre Order คู่มือหลักสูตร"
-                            
+                        action: {
+                            type: "text",
+                            label: "📚 Preorder คู่มือหลักสูตร",
+                            text: "สั่งจองคู่มือหลักสูตร"
+                        
                             
                            
                         },
