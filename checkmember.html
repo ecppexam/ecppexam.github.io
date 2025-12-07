@@ -71,8 +71,8 @@
                    const flexMessage = JSON.parse(response.body);
                     liff.sendMessages([flexMessage]);
                     Swal.fire(
-                        'ดำเนินการสำเร็จ',
-                        'คุณ ' + name + ' ลงทะเบียนแล้ว',
+                        'กำลังดำเนินการ',
+                        'คุณ ' + name + ' ได้ลงทะเบียนแล้ว',
                         'success'
                     ).then(() => {
                     liff.closeWindow()
