@@ -372,9 +372,10 @@ async showResults() {
                     contents: [{
                         type: "button",
                         action: {
-                            type: "message",
+                            type: "postback",
                             label: "📚 Preorder หนังสือ",
-                            text: "จองหนังสือ"
+                            data: "book_69",
+                            displayText:"จองหนังสือ"
                         },
                         style: "primary",
                         color: "#17c964",
