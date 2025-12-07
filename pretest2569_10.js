@@ -374,7 +374,7 @@ async showResults() {
                         action: {
                             type: "message",
                             label: "📚 Preorder หนังสือ",
-                            text: "https://line.me/R/ti/p/@yourbookstore"
+                            text: "1234"
                         },
                         style: "primary",
                         color: "#17c964",
