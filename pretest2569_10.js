@@ -366,15 +366,15 @@ async showResults() {
                     }],
                     paddingAll: "0px"
                 },
-                footer: {
+              footer: {
                     type: "box",
                     layout: "vertical",
                     contents: [{
                         type: "button",
                         action: {
-                            type: "message",
+                            type: "uri",
                             label: "📚 Preorder หนังสือ",
-                            text: "1234"
+                            uri: "https://line.me/R/ti/p/@yourbookstore"
                         },
                         style: "primary",
                         color: "#17c964",
