@@ -369,17 +369,29 @@ async showResults() {
               footer: {
                     type: "box",
                     layout: "vertical",
-                    contents: [{
-                        type: "button",
-                        action: {
-                            type: "uri",
-                            label: "📚 Preorder หนังสือ",
-                            uri: "https://www.facebook.com/profile.php?id=61555341730010"
-                        },
-                        style: "primary",
-                        color: "#17c964",
-                        height: "sm"
-                    }],
+                    contents: [
+                                  {
+                                    type: 'button',
+                                    action: {
+                                      type: 'message',
+                                      label: '📋 ตรวจสอบสถานะ',
+                                      text: 'สถานะ'
+                                    },
+                                    style: 'secondary',
+                                    margin: 'sm'
+                                  },
+                                  {
+                                    type: 'button',
+                                    action: {
+                                      type: 'message',
+                                      label: '🛒 สั่งสินค้าใหม่',
+                                      text: 'สั่งสินค้า'
+                                    },
+                                    style: 'primary',
+                                    color: '#27ACB2',
+                                    margin: 'sm'
+                                  }
+                                ],
                     spacing: "sm",
                     paddingAll: "20px"
                 }
