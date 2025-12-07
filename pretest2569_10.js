@@ -366,16 +366,15 @@ async showResults() {
                     }],
                     paddingAll: "0px"
                 },
-              footer: {
+          footer: {
                     type: "box",
                     layout: "vertical",
                     contents: [{
                         type: "button",
                         action: {
-                            type: "postback",
+                            type: "uri",
                             label: "📚 Preorder หนังสือ",
-                            data: "book_69",
-                            displayText:"จองหนังสือ"
+                            uri: "https://www.facebook.com/profile.php?id=61555341730010"
                         },
                         style: "primary",
                         color: "#17c964",
