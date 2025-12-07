@@ -369,19 +369,17 @@ async showResults() {
                 footer: {
                     type: "box",
                     layout: "vertical",
-                    contents: [
-                        {
-                            type: "button",
-                            action: {
-                              type: "message",
-                              label: "📚 Preorder หนังสือ",
-                              text: "จองหนังสือ"
-                            },
-                            style: "primary",
-                            color: "#17c964",
-                            height: "sm"
-                          }
-                    ],
+                    contents: [{
+                        type: "button",
+                        action: {
+                            type: "uri",
+                            label: "📚 Preorder หนังสือ",
+                            uri: "https://line.me/R/ti/p/@yourbookstore"
+                        },
+                        style: "primary",
+                        color: "#17c964",
+                        height: "sm"
+                    }],
                     spacing: "sm",
                     paddingAll: "20px"
                 }
