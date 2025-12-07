@@ -366,32 +366,22 @@ async showResults() {
                     }],
                     paddingAll: "0px"
                 },
-              footer: {
+                footer: {
                     type: "box",
                     layout: "vertical",
                     contents: [
-                                  {
-                                    type: 'button',
-                                    action: {
-                                      type: 'message',
-                                      label: '📋 ตรวจสอบสถานะ',
-                                      text: 'สถานะ'
-                                    },
-                                    style: 'secondary',
-                                    margin: 'sm'
-                                  },
-                                  {
-                                    type: 'button',
-                                    action: {
-                                      type: 'message',
-                                      label: '🛒 สั่งสินค้าใหม่',
-                                      text: 'สั่งสินค้า'
-                                    },
-                                    style: 'primary',
-                                    color: '#27ACB2',
-                                    margin: 'sm'
-                                  }
-                                ],
+                        {
+                            type: 'button',
+                            action: {
+                              type: 'message',
+                              label: '📚 Preorder หนังสือ',
+                              text: 'จองหนังสือ'
+                            },
+                            style: "primary",
+                            color: "#17c964",
+                            height: "sm"
+                          }
+                    ],
                     spacing: "sm",
                     paddingAll: "20px"
                 }
