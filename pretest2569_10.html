@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-CPP Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <!-- Import Custom CSS -->
+    <!-- <link rel="stylesheet" href="https://ecppexam.github.io/pretestic69.css"> -->
+    <link rel="stylesheet" href="https://ecppexam.github.io/test69.css">
+    
+</head>
+<body class="py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+      
+<!--         <div id="subjectSelection" class="quiz-card rounded-2xl shadow-xl p-8 text-center">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">กรุณาเลือกวิชา</h2>
+            <button onclick="selectSubject('subject1')" class="button mb-4 px-6 py-3 bg-indigo-600 text-white rounded-lg">วิชา 1</button>
+            <button onclick="selectSubject('subject2')" class="button mb-4 px-6 py-3 bg-indigo-600 text-white rounded-lg">วิชา 2</button>
+            <button onclick="selectSubject('subject3')" class="button mb-4 px-6 py-3 bg-indigo-600 text-white rounded-lg">วิชา 3</button>
+        </div> -->
+        
+        <div id="subjectSelection" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">เลือกวิชาที่ท่านต้องการ</h2>
+            <div id="subjectButtonsContainer"></div>
+        </div>
+
+        <!-- Loading Screen -->
+        <div id="loadingScreen" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p class="text-gray-600">กำลังโหลดข้อสอบ...</p>
+        </div>
+        
+        <!-- Loading Screen -->
+        <div id="loadingScreen3" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p class="text-gray-600">กำลังโหลดรายวิชา</p>
+        </div>
+      
+        <!-- Quiz Container -->
+        <div id="quizContainer" class="quiz-card rounded-2xl shadow-xl p-6 sm:p-8 hidden">
+            <!-- Header -->
+            <div class="text-center mb-8">
+              <h1 class="text-xl font-bold text-gray-800 mb-2">น้องพัสดุ ติวสอบ e-CPP</h1>
+              
+                <img id="userPicture" class="w-24 h-24 mx-auto mb-4 rounded-full shadow-lg object-cover" 
+                     src="https://i.pinimg.com/originals/be/04/0f/be040f35f073adc3a48c1fba489d2bc4.gif" 
+                     alt="User Profile">
+                
+                <p id="userName" class="text-xl font-medium text-gray-600 mb-2"></p>
+
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-6">
+                <div class="flex justify-between mb-2">
+<!--                     <span class="text-sm font-medium text-gray-600">คุณกำลังทำข้อสอบ</span>
+                    <span class="text-sm font-medium text-indigo-600" id="progressText">1/10</span> -->
+                  <strong class="text-sm font-medium text-gray-600" id="lesson">วิชา</strong>
+                  <strong class="text-xl font-medium text-indigo-600" id="progressText">1/10</strong>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="progress-bar bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 10%"></div>
+                </div>
+            </div>
+
+            <!-- Question Container -->
+            <div id="questionContainer" class="mb-8 animate-fade">
+                <!-- Questions will be inserted here -->
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex gap-4">
+                <button id="backButton" class="button flex-1 px-6 py-3 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 transition-colors hidden">
+                    <strong class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                        ย้อนกลับ
+                    </strong>
+                </button>
+                <button id="nextButton" class="button flex-1 px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                    <strong class="flex items-center justify-center">
+                        ถัดไป
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </strong>
+                </button>
+                <button id="submitButton" class="button flex-1 px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors hidden">
+                    <strong class="flex items-center justify-center">
+                        ส่งคำตอบ
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </strong>
+                </button>
+            </div>
+        </div>
+        
+        <div id="loadingScreen2" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p class="text-gray-600">กรุณารอซักครู่...</p>
+          </div>
+        <!-- Score Card -->
+        <div id="scoreCard" class="quiz-card rounded-2xl shadow-xl p-8 mt-6 hidden animate-fade">
+         <!-- <div id="scoreCard" class="hidden">  -->
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+                    <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-white-800 mb-2">ผลคะแนนของคุณ</h2>
+                <p class="text-4xl font-bold text-white-600 mb-4" id="scoreText">0/10</p>
+                <div class="space-y-4">
+                    <button onclick="restartPages()" 
+                            class="button w-full px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">
+                        ทำข้อสอบอีกครั้ง
+                    </button>
+                </div>
+            </div>
+             
+</div>
+          
+        </div>
+        
+    </div>
+
+    <footer class="text-center mt-8 text-white">
+        <p>© 2025 e-CPP Quiz. All rights reserved.</p>
+    </footer>
+
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+<!--     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/versions/2.22.3/sdk.js"></script> -->
+    <script src="https://ecppexam.github.io/pretest2569_10.js"></script>
+</body>
+</html>
