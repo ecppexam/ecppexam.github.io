@@ -372,9 +372,9 @@ async showResults() {
                     contents: [{
                         type: "button",
                         action: {
-                            type: "uri",
+                            type: "message",
                             label: "📚 Preorder หนังสือ",
-                            uri: "https://line.me/R/ti/p/@yourbookstore"
+                            text: "https://line.me/R/ti/p/@yourbookstore"
                         },
                         style: "primary",
                         color: "#17c964",
