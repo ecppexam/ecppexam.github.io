@@ -374,7 +374,7 @@ async showResults() {
                         action: {
                             type: "uri",
                             label: "📚 Preorder หนังสือ",
-                            uri: "https://line.me/R/ti/p/@yourbookstore"
+                            uri: "https://www.facebook.com/profile.php?id=61555341730010"
                         },
                         style: "primary",
                         color: "#17c964",
