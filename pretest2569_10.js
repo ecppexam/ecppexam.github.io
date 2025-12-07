@@ -371,11 +371,11 @@ async showResults() {
                     layout: "vertical",
                     contents: [
                         {
-                            type: 'button',
+                            type: "button",
                             action: {
-                              type: 'message',
-                              label: '📚 Preorder หนังสือ',
-                              text: 'จองหนังสือ'
+                              type: "message",
+                              label: "📚 Preorder หนังสือ",
+                              text: "จองหนังสือ"
                             },
                             style: "primary",
                             color: "#17c964",
