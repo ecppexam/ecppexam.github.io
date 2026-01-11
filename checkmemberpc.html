@@ -1,0 +1,140 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style type="text/css"> 
+        body { 
+            font-family: 'kanit'; 
+        } 
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script> 
+  
+    <title>กำลังเข้าสู่ระบบ...</title>
+  
+</head>
+<body>
+   <div class="absolute bg-white bg-opacity-60 z-10 h-full w-full flex items-center justify-center">
+    <div class="flex items-center">
+      <span class="text-3xl mr-4">Loading..</span>
+  <div class="relative flex justify-center items-center">
+    <div class="absolute animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-yellow-500"></div>
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExenY1OWpwM2ltdWp6azlrMDM4YjYyczI4MDJtbHF4cjkybHN5aXlodiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/tTmBcWlvdh68zCsTWw/giphy.gif"  class="rounded-full h-28 w-28">
+</div>
+  </div>
+  </div>
+  
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var liffId = "2006455439-BPkuAqjc";
+            initializeLiff(liffId);
+           
+        })
+
+        function initializeLiff(liffId) {
+            liff
+                .init({
+                    liffId: liffId,
+                    withLoginOnExternalBrowser: true,
+                })
+                .then(() => {
+                    if (!liff.isInClient() && !liff.isLoggedIn()) {
+                        window.alert("กรุณาเข้าสู่ระบบบัญชี LINE ของคุณ");
+                        liff.login({ redirectUri: location.href });
+
+                    }
+                    liff.ready.then(() => {
+                        const userId = liff.getDecodedIDToken().sub;
+                        const name = liff.getDecodedIDToken().name;
+                        const picture = liff.getDecodedIDToken().picture;
+                        sendToGoogleSheet(userId, name ,picture);
+                    });
+                })
+                .catch((err) => {
+                    console.log('LIFF Initialization failed ', err);
+                });
+        }
+
+        function sendToGoogleSheet(userId, name , picture) {
+                  // https://script.google.com/macros/s/AKfycbwAaa4nmIhs46VMRdPdm84ARsXftf6DeZLrmPM0MUkeRmuTLnPlhBzaBjP9X18rNPX_/exec
+          
+            $.post('https://script.google.com/macros/s/AKfycbz8D38YXh1hQy7jzaiS6qn4ey3jP-jsjSu9EUgsD-m30A_ghIllghitdNEg69YYHimFYw/exec', { userId: userId, name: name, picture: picture })
+            .done(function(response) {
+                if (response.statusCode === 200) {
+                   const flexMessage = JSON.parse(response.body);
+                    liff.sendMessages([flexMessage]);
+                    Swal.fire(
+                        'ปิดปรับปรุงระบบ',
+                        'คุณ ' + name + ' ได้ลงทะเบียนแล้วนะ',
+                        'success'
+                    ).then(() => {
+                    liff.closeWindow()
+                       
+                });
+                }
+            })
+            .fail(function(error) {
+                Swal.fire('ดำเนินการไม่สำเร็จ', 'โปรดลงทะเบียนก่อนนะ', 'warning').then(() => {
+                    // liff.closeWindow()
+                    liff.sendMessages([{
+                      "type":"flex",
+                      "altText":"Register",
+                      "contents":{
+                        "type":"bubble",
+                        "hero":{
+                          "type":"image",
+                          "url":"https:\/\/lh3.googleusercontent.com\/d\/1zaMLgJT0UxGCIpCmM1CvN1NHf_bdIr36",
+                          "size":"full",
+                          "aspectRatio":"1:1",
+                          "aspectMode":"cover",
+                          "action":{"type":"uri","uri":"https:\/\/linecorp.com"},
+                          "animated":true},
+                        "body":{
+                          "type":"box",
+                          "layout":"vertical",
+                          "spacing":"md",
+                          "action":{
+                            "type":"uri",
+                            "uri":"https:\/\/linecorp.com"},
+                          "contents":[{
+                            "type":"text",
+                            "text":"\u0e42\u0e1b\u0e23\u0e14\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e01\u0e48\u0e2d\u0e19\u0e19\u0e30",
+                            "size":"xl",
+                            "weight":"bold"},{
+                              "type":"text",
+                              "text":"\u0e40\u0e23\u0e32\u0e21\u0e35\u0e1a\u0e23\u0e34\u0e01\u0e32\u0e23\u0e25\u0e49\u0e33\u0e46\u0e2b\u0e25\u0e32\u0e22\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e25\u0e22",
+                              "wrap":true,
+                              "color":"#aaaaaa",
+                              "size":"xxs"}]},
+                        "footer":{
+                          "type":"box",
+                          "layout":"vertical",
+                          "contents":[{
+                            "type":"button",
+                            "style":"primary",
+                            "color":"#905c44",
+                            "margin":"xxl",
+                            "action":{
+                              "type":"uri",
+                              "label":"\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19",
+                              "uri":"https:\/\/line.me\/R\/app\/XXXXXXX-XXXXXX"}}]}}}]).then(() =>{
+                      
+                        liff.closeWindow()
+                    });
+
+                })
+            });
+        }
+
+    </script>
+</body>
+</html>
