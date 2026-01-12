@@ -67,7 +67,7 @@
         function sendToGoogleSheet(userId, name , picture) {
                   // https://script.google.com/macros/s/AKfycbwAaa4nmIhs46VMRdPdm84ARsXftf6DeZLrmPM0MUkeRmuTLnPlhBzaBjP9X18rNPX_/exec
           
-            $.post('https://script.google.com/macros/s/AKfycbz8D38YXh1hQy7jzaiS6qn4ey3jP-jsjSu9EUgsD-m30A_ghIllghitdNEg69YYHimFYw/exec', { userId: userId, name: name, picture: picture })
+            $.post('https://script.google.com/macros/s/AKfycbwqPdZDUpJd8bofSd7pGC963FZeMytLTwSLiK2K1eT3gB9tSpJOWFdpgX-wKTkZxeer/exec', { userId: userId, name: name, picture: picture })
             .done(function(response) {
                 if (response.statusCode === 200) {
                    const flexMessage = JSON.parse(response.body);
