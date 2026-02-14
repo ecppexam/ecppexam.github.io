@@ -89,10 +89,10 @@
 <div id="questionNumberSelection" class="quiz-card rounded-2xl shadow-xl p-8 text-center">
     <h2 class="text-xl font-bold text-gray-800 mb-6">เลือกจำนวนข้อสอบ</h2>
     <div class="grid grid-cols-2 gap-4">
-        <button onclick="setQuestionCount(10)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">10 ข้อ</button>
+        <!-- <button onclick="setQuestionCount(10)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">10 ข้อ</button>
         <button onclick="setQuestionCount(20)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">20 ข้อ</button>
         <button onclick="setQuestionCount(30)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">30 ข้อ</button>
-        <button onclick="setQuestionCount(40)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">40 ข้อ</button>
+        <button onclick="setQuestionCount(40)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">40 ข้อ</button> -->
         <button onclick="setQuestionCount(50)" class="button col-span-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">50 ข้อ</button>
     </div>
 </div>
@@ -189,7 +189,7 @@
     const LIFF_ID = "2006455439-FTjnChZd";
     const state = {
         userProfile: null, questions: [], currentQuestionIndex: 0, score: 0,
-        userAnswers: [], isLoading: true, lesson: '', email: null, numQuestions: 10
+        userAnswers: [], isLoading: true, lesson: '', email: null, numQuestions: 50
     };
 
     // --- Utility and UI Functions (Unchanged) ---
