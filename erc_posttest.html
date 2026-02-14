@@ -86,7 +86,7 @@
 <div class="max-w-3xl mx-auto">
 
 <!-- Select Number of Questions -->
-<!-- <div id="questionNumberSelection" class="quiz-card rounded-2xl shadow-xl p-8 text-center">
+<div id="questionNumberSelection" class="quiz-card rounded-2xl shadow-xl p-8 text-center">
     <h2 class="text-xl font-bold text-gray-800 mb-6">เลือกจำนวนข้อสอบ</h2>
     <div class="grid grid-cols-2 gap-4">
         <button onclick="setQuestionCount(10)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">10 ข้อ</button>
@@ -95,7 +95,7 @@
         <button onclick="setQuestionCount(40)" class="button px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">40 ข้อ</button>
         <button onclick="setQuestionCount(50)" class="button col-span-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">50 ข้อ</button>
     </div>
-</div> -->
+</div>
 
 <!-- Subject Selection -->
 <div id="subjectSelection" class="quiz-card rounded-2xl shadow-xl p-8 text-center hidden">
@@ -179,7 +179,7 @@
 
 
 <footer class="text-center mt-8 text-white">
-    <p>© 2025 e-CPP Quiz with Review. All rights reserved.</p>
+    <p>© 2024 e-CPP Quiz with Review. All rights reserved.</p>
 </footer>
 
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/versions/2.22.3/sdk.js"></script>
@@ -188,16 +188,10 @@
 
     const LIFF_ID = "2006455439-FTjnChZd";
     const state = {
-        userProfile: null, 
-        questions: [], 
-        currentQuestionIndex: 0, 
-        score: 0,
-        userAnswers: [], 
-        isLoading: true, 
-        lesson: '', 
-        email: null, 
-        numQuestions: 50  // ⬅️ กำหนดจำนวนข้อที่นี่
+        userProfile: null, questions: [], currentQuestionIndex: 0, score: 0,
+        userAnswers: [], isLoading: true, lesson: '', email: null, numQuestions: 10
     };
+
     // --- Utility and UI Functions (Unchanged) ---
     const shuffle = array => {
         for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[array[i], array[j]] = [array[j], array[i]]; }
@@ -325,12 +319,12 @@
     // --- Core Logic & LIFF (Mostly Unchanged) ---
     async function shareResults() { /* ... function content remains the same ... */ }
     async function initializeLIFF() { /* ... function content remains the same ... */ }
-    // function setQuestionCount(count) { state.numQuestions = count; document.getElementById('questionNumberSelection').classList.add('hidden'); loadSubjects(); }
+    function setQuestionCount(count) { state.numQuestions = count; document.getElementById('questionNumberSelection').classList.add('hidden'); loadSubjects(); }
     function selectSubject(subjectName) { document.getElementById('subjectSelection').classList.add('hidden'); document.getElementById('loadingScreen').classList.remove('hidden'); fetchQuestions(subjectName); }
     async function sendToGoogleSheet(userId, name, email, lesson, score) { /* ... function content remains the same ... */ }
     async function loadSubjects() { /* ... function content remains the same ... */ }
-    function fetchQuestions(subjectId) { 
-        const url = `https://script.google.com/macros/s/AKfycbyAfWrE-s80xMoRY3ENQpinSBXHInonusUIRF6hPEo9TXANHhLAs7ZGMj5NDrXgPs42/exec?lesson=${encodeURIComponent(subjectId)}`;
+    function fetchQuestions(subjectId) {
+        const url = `https://script.google.com/macros/s/AKfycbyoJaWTUOd9xtDNnAhVTR3PQb0kWOOOoey2FpdItfrcdZGPFH6uflnJAJUnDTTUVqYW/exec?lesson=${encodeURIComponent(subjectId)}`;
         fetch(url)
             .then(response => { if (!response.ok) throw new Error('Network response was not ok'); return response.json(); })
             .then(data => {
@@ -363,19 +357,15 @@
     }
 
     function restartPages() {
-    state.currentQuestionIndex = 0;
-    state.userAnswers = [];
-    state.score = 0;
-    document.getElementById('quizContainer').classList.add('hidden');
-    document.getElementById('scoreCard').classList.add('hidden');
-    document.getElementById('reviewContainer').classList.add('hidden');
-    document.getElementById('subjectSelection').classList.add('hidden');
-    // ลบบรรทัดนี้ออก
-    // document.getElementById('questionNumberSelection').classList.remove('hidden');
-    
-    // เปลี่ยนเป็น
-    loadSubjects(); // ⬅️ กลับไปหน้าเลือกวิชาเลย
-}
+        state.currentQuestionIndex = 0;
+        state.userAnswers = [];
+        state.score = 0;
+        document.getElementById('quizContainer').classList.add('hidden');
+        document.getElementById('scoreCard').classList.add('hidden');
+        document.getElementById('reviewContainer').classList.add('hidden'); // Hide review
+        document.getElementById('subjectSelection').classList.add('hidden');
+        document.getElementById('questionNumberSelection').classList.remove('hidden');
+    }
 
     // --- Event Listeners ---
     document.getElementById('nextButton').addEventListener('click', nextQuestion);
@@ -395,22 +385,18 @@
     document.getElementById('reviewButton').addEventListener('click', showReviewScreen);
     document.getElementById('backToScoreButton').addEventListener('click', backToScoreScreen);
     
-window.onload = async () => {
-    await initializeLIFF();
-    document.querySelectorAll('.quiz-card').forEach(card => card.classList.add('hidden'));
-    // ลบบรรทัดนี้
-    // document.getElementById('questionNumberSelection').classList.remove('hidden');
-    
-    // เปลี่ยนเป็น
-    loadSubjects(); // ⬅️ เริ่มที่หน้าเลือกวิชาเลย
-};
+    window.onload = async () => {
+        await initializeLIFF();
+        document.querySelectorAll('.quiz-card').forEach(card => card.classList.add('hidden'));
+        document.getElementById('questionNumberSelection').classList.remove('hidden');
+    };
     
     // Paste the unchanged functions (shareResults, initializeLIFF, etc.) here to keep the script complete
     // For brevity, I'm assuming you have them. I'll just put stubs.
     async function shareResults() { if (!state.userProfile || !liff.isInClient()) return; const flexMessage = {"type":"flex","altText":"ผลการสอบ e-CPP","contents":{"type":"bubble","body":{"type":"box","layout":"vertical","contents":[{"type":"box","layout":"horizontal","contents":[{"type":"box","layout":"vertical","contents":[{"type":"image","url":state.userProfile.pictureUrl||"https://i.pinimg.com/originals/be/04/0f/be040f35f073adc3a48c1fba489d2bc4.gif","aspectMode":"cover","size":"full"}],"cornerRadius":"100px","width":"72px","height":"72px"},{"type":"box","layout":"vertical","contents":[{"type":"text","contents":[{"type":"span","text":"คุณ : "+state.userProfile.displayName,"weight":"bold","color":"#000000"}],"size":"sm","wrap":false},{"type":"text","contents":[{"type":"span","text":"วิชา : "+state.lesson,"weight":"bold","color":"#bcbcbc"}],"size":"sm","wrap":false},{"type":"text","contents":[{"type":"span","text":`คะแนน: ${state.score}/${state.questions.length}`,"weight":"bold","color":"#000000"}],"size":"sm","wrap":true}],"justifyContent":"space-between"}],"spacing":"xl","paddingAll":"20px"}],"paddingAll":"0px"}}}; try { await sendToGoogleSheet(state.userProfile.userId, state.userProfile.displayName, state.email, state.lesson, state.score); await liff.sendMessages([flexMessage]); } catch (error) { console.error('Error sharing results:', error); Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถแชร์ผลคะแนนได้', 'error'); } };
     async function initializeLIFF() { try { await liff.init({ liffId: LIFF_ID }); if (liff.isLoggedIn()) { state.userProfile = await liff.getProfile(); const decodedToken = liff.getDecodedIDToken(); state.email = decodedToken.email; document.getElementById('userPicture').src = state.userProfile.pictureUrl; document.getElementById('userName').textContent = state.userProfile.displayName; } else { liff.login(); } } catch (error) { console.error('LIFF initialization failed:', error); document.getElementById('userName').textContent = "Guest User"; } }
-    async function sendToGoogleSheet(userId, name, email, lesson, score) { const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwQyjAFH9b--5lnh5VxD-ijnqWS6V6_CH70KCcep9c5ExamMTmkQFOv0bynCqgvPkYowg/exec'; try { await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams({userId, displayName: name, email, lesson, score}) }); console.log('Data submission initiated.'); } catch (error) { console.error("Error sending data to Google Sheet:", error); } }
-    async function loadSubjects() { const SUBJECTS_API_URL = 'https://script.google.com/macros/s/AKfycbyoJaWTUOd9xtDNnAhVTR3PQb0kWOOOoey2FpdItfrcdZGPFH6uflnJAJUnDTTUVqYW/exec'; document.getElementById('loadingScreen3').classList.remove('hidden'); try { const response = await fetch(SUBJECTS_API_URL); if (!response.ok) throw new Error('Failed to load subjects'); const data = await response.json(); const container = document.getElementById('subjectButtonsContainer'); container.innerHTML = ''; const wrapper = document.createElement('div'); wrapper.className = 'grid grid-cols-1 md:grid-cols-2 gap-4'; data.subjects.forEach(subject => { const card = document.createElement('div'); card.className = 'flex flex-col items-center p-4 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300'; const title = document.createElement('h3'); title.className = 'text-lg font-bold text-gray-800 mb-3 text-center'; title.textContent = subject.name; const button = document.createElement('button'); button.className = 'button w-full px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700'; button.textContent = 'ทำข้อสอบ'; button.onclick = () => selectSubject(subject.name); card.appendChild(title); card.appendChild(button); wrapper.appendChild(card); }); container.appendChild(wrapper); } catch (error) { console.error('Error loading subjects:', error); Swal.fire("เกิดข้อผิดพลาด", "ไม่สามารถโหลดรายวิชาได้", "error"); } finally { document.getElementById('loadingScreen3').classList.add('hidden'); document.getElementById('subjectSelection').classList.remove('hidden'); } }
+    async function sendToGoogleSheet(userId, name, email, lesson, score) { const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyrm59LjB85rWLZD5GOQe7R4wjdCO_PkLv0bHtXB8k_hxIWVYF5gfpOEwJNDnTjcCK6fg/exec'; try { await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams({userId, displayName: name, email, lesson, score}) }); console.log('Data submission initiated.'); } catch (error) { console.error("Error sending data to Google Sheet:", error); } }
+    async function loadSubjects() { const SUBJECTS_API_URL = 'https://script.google.com/macros/s/AKfycbx4xAwA9Pzl8Qfa1vs6Z2_spZFNSQL1eTmq_akSJU8pWiMhynN6Z3pFqYGqEK4CClhB/exec'; document.getElementById('loadingScreen3').classList.remove('hidden'); try { const response = await fetch(SUBJECTS_API_URL); if (!response.ok) throw new Error('Failed to load subjects'); const data = await response.json(); const container = document.getElementById('subjectButtonsContainer'); container.innerHTML = ''; const wrapper = document.createElement('div'); wrapper.className = 'grid grid-cols-1 md:grid-cols-2 gap-4'; data.subjects.forEach(subject => { const card = document.createElement('div'); card.className = 'flex flex-col items-center p-4 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300'; const title = document.createElement('h3'); title.className = 'text-lg font-bold text-gray-800 mb-3 text-center'; title.textContent = subject.name; const button = document.createElement('button'); button.className = 'button w-full px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700'; button.textContent = 'ทำข้อสอบ'; button.onclick = () => selectSubject(subject.name); card.appendChild(title); card.appendChild(button); wrapper.appendChild(card); }); container.appendChild(wrapper); } catch (error) { console.error('Error loading subjects:', error); Swal.fire("เกิดข้อผิดพลาด", "ไม่สามารถโหลดรายวิชาได้", "error"); } finally { document.getElementById('loadingScreen3').classList.add('hidden'); document.getElementById('subjectSelection').classList.remove('hidden'); } }
 
 </script>
 </body>
