@@ -324,7 +324,7 @@
     async function sendToGoogleSheet(userId, name, email, lesson, score) { /* ... function content remains the same ... */ }
     async function loadSubjects() { /* ... function content remains the same ... */ }
     function fetchQuestions(subjectId) {
-        const url = `https://script.google.com/macros/s/AKfycbyAfWrE-s80xMoRY3ENQpinSBXHInonusUIRF6hPEo9TXANHhLAs7ZGMj5NDrXgPs42/exec?lesson=${encodeURIComponent(subjectId)}`;
+        const url = `https://script.google.com/macros/s/AKfycbyoJaWTUOd9xtDNnAhVTR3PQb0kWOOOoey2FpdItfrcdZGPFH6uflnJAJUnDTTUVqYW/exec?lesson=${encodeURIComponent(subjectId)}`;
         fetch(url)
             .then(response => { if (!response.ok) throw new Error('Network response was not ok'); return response.json(); })
             .then(data => {
