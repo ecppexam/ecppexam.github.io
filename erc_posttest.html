@@ -188,10 +188,16 @@
 
     const LIFF_ID = "2006455439-FTjnChZd";
     const state = {
-        userProfile: null, questions: [], currentQuestionIndex: 0, score: 0,
-        userAnswers: [], isLoading: true, lesson: '', email: null, numQuestions: 10
+        userProfile: null, 
+        questions: [], 
+        currentQuestionIndex: 0, 
+        score: 0,
+        userAnswers: [], 
+        isLoading: true, 
+        lesson: '', 
+        email: null, 
+        numQuestions: 50  // ⬅️ กำหนดจำนวนข้อที่นี่
     };
-
     // --- Utility and UI Functions (Unchanged) ---
     const shuffle = array => {
         for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[array[i], array[j]] = [array[j], array[i]]; }
@@ -319,7 +325,7 @@
     // --- Core Logic & LIFF (Mostly Unchanged) ---
     async function shareResults() { /* ... function content remains the same ... */ }
     async function initializeLIFF() { /* ... function content remains the same ... */ }
-    function setQuestionCount(count) { state.numQuestions = count; document.getElementById('questionNumberSelection').classList.add('hidden'); loadSubjects(); }
+    // function setQuestionCount(count) { state.numQuestions = count; document.getElementById('questionNumberSelection').classList.add('hidden'); loadSubjects(); }
     function selectSubject(subjectName) { document.getElementById('subjectSelection').classList.add('hidden'); document.getElementById('loadingScreen').classList.remove('hidden'); fetchQuestions(subjectName); }
     async function sendToGoogleSheet(userId, name, email, lesson, score) { /* ... function content remains the same ... */ }
     async function loadSubjects() { /* ... function content remains the same ... */ }
@@ -357,15 +363,19 @@
     }
 
     function restartPages() {
-        state.currentQuestionIndex = 0;
-        state.userAnswers = [];
-        state.score = 0;
-        document.getElementById('quizContainer').classList.add('hidden');
-        document.getElementById('scoreCard').classList.add('hidden');
-        document.getElementById('reviewContainer').classList.add('hidden'); // Hide review
-        document.getElementById('subjectSelection').classList.add('hidden');
-        document.getElementById('questionNumberSelection').classList.remove('hidden');
-    }
+    state.currentQuestionIndex = 0;
+    state.userAnswers = [];
+    state.score = 0;
+    document.getElementById('quizContainer').classList.add('hidden');
+    document.getElementById('scoreCard').classList.add('hidden');
+    document.getElementById('reviewContainer').classList.add('hidden');
+    document.getElementById('subjectSelection').classList.add('hidden');
+    // ลบบรรทัดนี้ออก
+    // document.getElementById('questionNumberSelection').classList.remove('hidden');
+    
+    // เปลี่ยนเป็น
+    loadSubjects(); // ⬅️ กลับไปหน้าเลือกวิชาเลย
+}
 
     // --- Event Listeners ---
     document.getElementById('nextButton').addEventListener('click', nextQuestion);
@@ -385,11 +395,15 @@
     document.getElementById('reviewButton').addEventListener('click', showReviewScreen);
     document.getElementById('backToScoreButton').addEventListener('click', backToScoreScreen);
     
-    window.onload = async () => {
-        await initializeLIFF();
-        document.querySelectorAll('.quiz-card').forEach(card => card.classList.add('hidden'));
-        document.getElementById('questionNumberSelection').classList.remove('hidden');
-    };
+window.onload = async () => {
+    await initializeLIFF();
+    document.querySelectorAll('.quiz-card').forEach(card => card.classList.add('hidden'));
+    // ลบบรรทัดนี้
+    // document.getElementById('questionNumberSelection').classList.remove('hidden');
+    
+    // เปลี่ยนเป็น
+    loadSubjects(); // ⬅️ เริ่มที่หน้าเลือกวิชาเลย
+};
     
     // Paste the unchanged functions (shareResults, initializeLIFF, etc.) here to keep the script complete
     // For brevity, I'm assuming you have them. I'll just put stubs.
