@@ -772,7 +772,7 @@
     <div class="score-ring-wrap">
       <svg viewBox="0 0 140 140" width="140" height="140">
         <circle class="score-ring-bg" cx="70" cy="70" r="60"/>
-        <circle class="score-ring-fill" id="scoreRing" cx="70" cy="70" r="60" stroke-dasharray="377 377" stroke-dashoffset="377"/>
+        <circle class="score-ring-fill" id="scoreRing" cx="70" cy="70" r="60" stroke-dasharray="376.99 376.99" stroke-dashoffset="376.99"/>
       </svg>
       <div class="score-ring-text">
         <div class="score-big" id="scoreBig">0</div>
@@ -1053,7 +1053,13 @@ document.getElementById('submitButton').addEventListener('click', () => {
     title: 'ยืนยันส่งคำตอบ?', text: msg, icon: 'question',
     showCancelButton: true, confirmButtonText: 'ส่งเลย ✓', cancelButtonText: 'ตรวจสอบก่อน',
     confirmButtonColor: '#68d391', cancelButtonColor: '#4a5568'
-  }).then(r => { if (r.isConfirmed) { stopTimer(); showResults(); shareResults(); } });
+  }).then(r => {
+    if (r.isConfirmed) {
+      stopTimer();
+      showResults();          // คำนวณ score ก่อน (synchronous)
+      shareResults();         // แล้วค่อยส่ง (score พร้อมแล้ว)
+    }
+  });
 });
 
 /* ── Score ── */
@@ -1094,12 +1100,15 @@ function showResults() {
   document.getElementById('scoreMessage').textContent = message;
   document.getElementById('scoreCard').classList.remove('hidden');
 
+  const CIRC = 2 * Math.PI * 60; // ~376.99
   const ring = document.getElementById('scoreRing');
   ring.style.stroke = strokeColor;
-  const circ = 2 * Math.PI * 60;
-  setTimeout(() => {
-    ring.style.strokeDashoffset = circ - (circ * pct/100);
-  }, 100);
+  ring.setAttribute('stroke-dasharray', CIRC + ' ' + CIRC);
+  ring.setAttribute('stroke-dashoffset', CIRC); // start empty
+  // double rAF ensures browser has painted the initial state before animating
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    ring.setAttribute('stroke-dashoffset', CIRC - (CIRC * pct / 100));
+  }));
 
   if (pct >= 80 && typeof confetti === 'function') {
     confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
@@ -1186,13 +1195,62 @@ async function initializeLIFF() {
 }
 
 async function shareResults() {
+  // 1. บันทึก Google Sheet ก่อนเสมอ (score พร้อมแล้วจาก calculateScore ใน showResults)
+  if (state.userProfile) {
+    try {
+      await sendToSheet(
+        state.userProfile.userId,
+        state.userProfile.displayName,
+        state.email || '',
+        state.lesson,
+        state.score
+      );
+    } catch(e) { console.error('sendToSheet error:', e); }
+  }
+
+  // 2. ส่ง Flex Message เฉพาะใน LIFF Client
   if (!state.userProfile || !liff.isInClient()) return;
-  const flex = {"type":"flex","altText":"ผลการสอบ e-CPP","contents":{"type":"bubble","body":{"type":"box","layout":"vertical","contents":[{"type":"box","layout":"horizontal","contents":[{"type":"box","layout":"vertical","contents":[{"type":"image","url":state.userProfile.pictureUrl||"","aspectMode":"cover","size":"full"}],"cornerRadius":"100px","width":"72px","height":"72px"},{"type":"box","layout":"vertical","contents":[{"type":"text","contents":[{"type":"span","text":"คุณ: "+state.userProfile.displayName,"weight":"bold","color":"#000000"}],"size":"sm","wrap":false},{"type":"text","contents":[{"type":"span","text":"วิชา: "+state.lesson,"weight":"bold","color":"#bcbcbc"}],"size":"sm","wrap":false},{"type":"text","contents":[{"type":"span","text":"คะแนน: "+state.score+"/"+state.questions.length,"weight":"bold","color":"#000000"}],"size":"sm","wrap":true}],"justifyContent":"space-between"}],"spacing":"xl","paddingAll":"20px"}],"paddingAll":"0px"}}}; 
+
+  const scoreText = state.score + '/' + state.questions.length;
+  const pctText   = Math.round((state.score / state.questions.length) * 100) + '%';
+  const picUrl    = state.userProfile.pictureUrl
+                    || 'https://i.pinimg.com/originals/be/04/0f/be040f35f073adc3a48c1fba489d2bc4.gif';
+
+  const flex = {
+    "type": "flex",
+    "altText": "ผลการสอบ e-CPP: " + scoreText,
+    "contents": {
+      "type": "bubble",
+      "body": {
+        "type": "box", "layout": "vertical", "paddingAll": "0px",
+        "contents": [{
+          "type": "box", "layout": "horizontal",
+          "spacing": "xl", "paddingAll": "20px",
+          "contents": [
+            {
+              "type": "box", "layout": "vertical",
+              "cornerRadius": "100px", "width": "72px", "height": "72px",
+              "contents": [{"type":"image","url":picUrl,"aspectMode":"cover","size":"full"}]
+            },
+            {
+              "type": "box", "layout": "vertical", "justifyContent": "space-between",
+              "contents": [
+                {"type":"text","text":"คุณ: " + state.userProfile.displayName,"weight":"bold","color":"#000000","size":"sm","wrap":false},
+                {"type":"text","text":"วิชา: " + state.lesson,"weight":"bold","color":"#555555","size":"sm","wrap":true},
+                {"type":"text","text":"คะแนน: " + scoreText + "  (" + pctText + ")","weight":"bold","color":"#1a73e8","size":"sm","wrap":true}
+              ]
+            }
+          ]
+        }]
+      }
+    }
+  };
+
   try {
-    await sendToSheet(state.userProfile.userId, state.userProfile.displayName, state.email, state.lesson, state.score);
     await liff.sendMessages([flex]);
-  } catch(e) { console.error(e); }
+  } catch(e) { console.error('liff.sendMessages error:', e); }
 }
+
 
 async function sendToSheet(userId, name, email, lesson, score) {
   try {
