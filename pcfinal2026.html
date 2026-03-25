@@ -259,11 +259,23 @@ input[type="number"], input[type="range"] { accent-color: var(--accent); }
 }
 .divider { border-color: var(--input-border); }
 
-/* ── Review ── */
-.review-correct { background: #f0fdf4; border-color: #86efac; color: #14532d; }
-.review-wrong   { background: #fef2f2; border-color: #fca5a5; color: #7f1d1d; }
-body.t-dark .review-correct { background: #052e16; border-color: #166534; color: #bbf7d0; }
-body.t-dark .review-wrong   { background: #2d0a0a; border-color: #991b1b; color: #fecaca; }
+/* ── Timer Lock Info Box ── */
+.timer-lock-box {
+    background: var(--input-bg);
+    border: 1.5px solid var(--input-border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 500;
+}
+.timer-lock-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+}
 </style>
 </head>
 <body class="py-8 px-4 sm:px-6 lg:px-8">
@@ -331,62 +343,23 @@ body.t-dark .review-wrong   { background: #2d0a0a; border-color: #991b1b; color:
 
     <hr class="divider mb-6">
 
-    <!-- ⏱ จับเวลา -->
+    <!-- ⏱ เวลาสอบ (ล็อค 60 นาที — แสดงแบบอ่านอย่างเดียว) -->
     <div class="mb-6">
-        <div class="section-label">⏱ การจับเวลา</div>
-        <div class="toggle-wrap mb-3">
-            <label class="toggle">
-                <input type="checkbox" id="timerToggle" checked onchange="toggleTimerInput()">
-                <span class="toggle-slider"></span>
-            </label>
-            <span style="color:var(--text);font-weight:500">เปิดจับเวลา</span>
-        </div>
-        <div id="timerInputWrap" class="flex items-center gap-3">
-            <div style="flex:1">
-                <input type="range" id="timerSlider" min="5" max="120" value="30"
-                       class="w-full" oninput="syncTimer('slider')">
-            </div>
-            <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-                <input type="number" id="timerNum" value="30" min="1" max="180"
-                       class="themed-input" style="width:70px;text-align:center"
-                       oninput="syncTimer('num')">
-                <span style="color:var(--text-muted);font-size:14px;white-space:nowrap">นาที</span>
-            </div>
-        </div>
-        <!-- Quick presets -->
-        <div class="flex gap-2 mt-3 flex-wrap">
-            <button class="btn btn-gray text-xs rounded-lg px-3 py-1" onclick="setTimerPreset(10)">10 น.</button>
-            <button class="btn btn-gray text-xs rounded-lg px-3 py-1" onclick="setTimerPreset(15)">15 น.</button>
-            <button class="btn btn-gray text-xs rounded-lg px-3 py-1" onclick="setTimerPreset(30)">30 น.</button>
-            <button class="btn btn-gray text-xs rounded-lg px-3 py-1" onclick="setTimerPreset(60)">60 น.</button>
-            <button class="btn btn-gray text-xs rounded-lg px-3 py-1" onclick="setTimerPreset(90)">90 น.</button>
+        <div class="section-label">⏱ เวลาสอบ</div>
+        <div class="timer-lock-box">
+            <span class="timer-lock-icon">🔒</span>
+            <span>เวลาในการสอบ <strong>60 นาที</strong> (กำหนดโดยผู้ดูแลระบบ)</span>
         </div>
     </div>
 
     <hr class="divider mb-6">
 
-    <!-- 📝 จำนวนข้อสอบ -->
+    <!-- 📝 จำนวนข้อสอบ (ล็อค 100 ข้อ) -->
     <div class="mb-6">
         <div class="section-label">📝 จำนวนข้อสอบ</div>
-        <div class="flex items-center gap-3 mb-3">
-            <div style="flex:1">
-                <input type="range" id="qSlider" min="1" max="100" value="20"
-                       class="w-full" oninput="syncQ('slider')">
-            </div>
-            <div style="flex-shrink:0">
-                <input type="number" id="qNum" value="20" min="1" max="999"
-                       class="themed-input" style="width:70px;text-align:center"
-                       oninput="syncQ('num')">
-            </div>
-        </div>
-        <div style="color:var(--text-muted);font-size:13px;margin-bottom:10px">ข้อ</div>
-        <!-- Quick presets -->
-        <div class="flex gap-2 flex-wrap">
-            <button class="btn btn-gray text-xs rounded-lg px-3 py-1" onclick="setQPreset(10)">10 ข้อ</button>
-            <button class="btn btn-gray text-xs rounded-lg px-3 py-1" onclick="setQPreset(20)">20 ข้อ</button>
-            <button class="btn btn-gray text-xs rounded-lg px-3 py-1" onclick="setQPreset(30)">30 ข้อ</button>
-            <button class="btn btn-gray text-xs rounded-lg px-3 py-1" onclick="setQPreset(50)">50 ข้อ</button>
-            <button class="btn btn-primary text-xs rounded-lg px-3 py-1" onclick="setQPreset(9999)">ทั้งหมด</button>
+        <div class="timer-lock-box">
+            <span class="timer-lock-icon">🔒</span>
+            <span>จำนวนข้อสอบ <strong>100 ข้อ</strong> (กำหนดโดยผู้ดูแลระบบ)</span>
         </div>
     </div>
 
@@ -438,7 +411,7 @@ body.t-dark .review-wrong   { background: #2d0a0a; border-color: #991b1b; color:
             </div>
             <div class="flex items-center gap-2">
                 <img id="quizPic" class="w-9 h-9 rounded-full object-cover border-2 border-white border-opacity-50" src="" alt="">
-                <div id="timerPill" class="timer-pill hidden">⏱ 30:00</div>
+                <div id="timerPill" class="timer-pill hidden">⏱ 60:00</div>
             </div>
         </div>
         <!-- Question progress bar -->
@@ -448,7 +421,7 @@ body.t-dark .review-wrong   { background: #2d0a0a; border-color: #991b1b; color:
             </div>
             <div id="qProgressText" style="font-size:12px;opacity:.85;white-space:nowrap;font-weight:600"></div>
         </div>
-        <!-- Time progress bar (ถ้าเปิดจับเวลา) -->
+        <!-- Time progress bar -->
         <div id="timeBarWrap" class="mt-1 rounded-full h-1 hidden" style="background:rgba(255,255,255,0.2)">
             <div id="timeBarFill" class="t-progress-fill rounded-full h-1" style="width:100%"></div>
         </div>
@@ -485,7 +458,7 @@ body.t-dark .review-wrong   { background: #2d0a0a; border-color: #991b1b; color:
 </div>
 
 <!-- ══════════════════════════════════════════
-     Score Card
+     Score Card  (แสดงเฉพาะคะแนน ไม่มีเฉลย ไม่มีสอบใหม่)
 ══════════════════════════════════════════ -->
 <div id="scoreCard" class="quiz-card rounded-2xl p-8 hidden animate-fade">
     <div class="text-center">
@@ -515,30 +488,17 @@ body.t-dark .review-wrong   { background: #2d0a0a; border-color: #991b1b; color:
             </div>
         </div>
 
-        <div class="space-y-3">
-            <button onclick="showReview()" class="btn btn-blue w-full rounded-xl py-3">
-                🔍 ดูเฉลย
-            </button>
-            <button onclick="restartQuiz()" class="btn btn-primary w-full rounded-xl py-3">
-                🔄 สอบใหม่วิชาเดิม
-            </button>
-            <button onclick="show('setupScreen')" class="btn btn-gray w-full rounded-xl py-3">
-                📚 เลือกวิชาใหม่
-            </button>
+        <!-- ข้อความแจ้งผู้สอบ -->
+        <div class="rounded-xl p-4 mb-5" style="background:var(--input-bg);color:var(--text-muted);font-size:14px;line-height:1.7">
+            📌 ผลการสอบถูกบันทึกเรียบร้อยแล้ว<br>
+            การสอบครั้งนี้ได้เสร็จสิ้นแล้ว ขอบคุณที่เข้าร่วมการสอบ
         </div>
-    </div>
-</div>
 
-<!-- ══════════════════════════════════════════
-     Review
-══════════════════════════════════════════ -->
-<div id="reviewScreen" class="quiz-card rounded-2xl p-6 sm:p-8 hidden animate-fade">
-    <h2 class="text-2xl font-bold mb-6 text-center" style="color:var(--text)">📋 เฉลยข้อสอบ</h2>
-    <div id="reviewContent" class="space-y-5"></div>
-    <button onclick="show('scoreCard')"
-            class="btn btn-gray w-full rounded-xl py-3 mt-8">
-        ← กลับหน้าผลคะแนน
-    </button>
+        <!-- ปุ่มปิดหน้าต่าง (ไม่มีปุ่มสอบใหม่หรือเฉลย) -->
+        <button onclick="closeApp()" class="btn btn-gray w-full rounded-xl py-3">
+            ✖ ปิดหน้าต่าง
+        </button>
+    </div>
 </div>
 
 <footer class="text-center mt-8" style="color:var(--text-muted);font-size:13px">
@@ -553,40 +513,42 @@ body.t-dark .review-wrong   { background: #2d0a0a; border-color: #991b1b; color:
 // ══════════════════════════════════════════════════════
 const LIFF_ID = '2006455439-wpMj7p04';
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzZvqGJ0nwgwh4cFvAphE5EyyAI_smP_I4gcv3C-VAzYL86jt4SDu_HIZGDaKsZXwzu/exec';
+
 // ══════════════════════════════════════════════════════
+//  ล็อคเวลา 60 นาที และ 100 ข้อ (ห้ามแก้ไขโดยผู้ใช้)
+// ══════════════════════════════════════════════════════
+const FIXED_TIMER_MIN = 60;
+const FIXED_NUM_Q     = 100;
 
 // ── State ──────────────────────────────────────────────
 const S = {
-    profile:    null,   // LINE profile
+    profile:    null,
     email:      null,
-    questions:  [],     // ข้อสอบที่กำลังสอบ
-    allQ:       [],     // ทั้งหมดที่ดึงมา
+    questions:  [],
+    allQ:       [],
     answers:    [],
     idx:        0,
     score:      0,
     lesson:     '',
-    useTimer:   true,
-    timerMin:   30,
+    useTimer:   true,          // เปิดจับเวลาเสมอ
+    timerMin:   FIXED_TIMER_MIN,
     numQ:       20,
     timeLeft:   0,
     timeUsed:   0,
     timerTick:  null,
-    totalSec:   0
+    totalSec:   0,
+    examDone:   false          // ป้องกันสอบซ้ำ
 };
 
 // ── Show/Hide ──────────────────────────────────────────
 const SCREENS = [
     'authScreen','setupScreen','subjectScreen',
     'loadingSubjects','loadingQuestions','loadingSubmit',
-    'quizScreen','scoreCard','reviewScreen'
+    'quizScreen','scoreCard'
 ];
 function show(id) {
     SCREENS.forEach(s => document.getElementById(s).classList.add('hidden'));
     document.getElementById(id).classList.remove('hidden');
-}
-function showMulti(...ids) {
-    SCREENS.forEach(s => document.getElementById(s).classList.add('hidden'));
-    ids.forEach(id => document.getElementById(id).classList.remove('hidden'));
 }
 
 // ── Theme ──────────────────────────────────────────────
@@ -608,50 +570,24 @@ function loadTheme() {
     if (el) el.classList.add('active');
 }
 
-// ── Timer Sync ─────────────────────────────────────────
-function syncTimer(src) {
-    const slider = document.getElementById('timerSlider');
-    const num    = document.getElementById('timerNum');
-    if (src === 'slider') {
-        num.value = slider.value;
-    } else {
-        const v = Math.max(1, Math.min(180, parseInt(num.value) || 30));
-        num.value = v;
-        slider.value = Math.min(v, 120);
-    }
-}
-function setTimerPreset(v) {
-    document.getElementById('timerNum').value    = v;
-    document.getElementById('timerSlider').value = Math.min(v, 120);
-}
-function toggleTimerInput() {
-    const on  = document.getElementById('timerToggle').checked;
-    document.getElementById('timerInputWrap').style.opacity = on ? '1' : '0.35';
-    document.getElementById('timerInputWrap').style.pointerEvents = on ? '' : 'none';
-}
-
-// ── Question Count Sync ────────────────────────────────
-function syncQ(src) {
-    const slider = document.getElementById('qSlider');
-    const num    = document.getElementById('qNum');
-    if (src === 'slider') {
-        num.value = slider.value;
-    } else {
-        const v = Math.max(1, parseInt(num.value) || 20);
-        num.value = v;
-        slider.value = Math.min(v, 100);
-    }
-}
-function setQPreset(v) {
-    document.getElementById('qNum').value    = v === 9999 ? 9999 : v;
-    document.getElementById('qSlider').value = Math.min(v, 100);
-}
-
 // ── Proceed to Subject ─────────────────────────────────
 function goToSubject() {
-    S.useTimer = document.getElementById('timerToggle').checked;
-    S.timerMin = parseInt(document.getElementById('timerNum').value) || 30;
-    S.numQ     = parseInt(document.getElementById('qNum').value) || 20;
+    // ตรวจสอบว่าเคยสอบแล้วหรือยัง (ใช้ sessionStorage — ต่อ session)
+    if (sessionStorage.getItem('examDone_' + (S.profile?.userId || 'guest'))) {
+        Swal.fire({
+            icon: 'info',
+            title: 'คุณสอบเสร็จแล้ว',
+            text: 'ระบบอนุญาตให้สอบได้เพียง 1 ครั้ง ขอบคุณที่เข้าร่วมการสอบ',
+            allowOutsideClick: false,
+            confirmButtonText: 'รับทราบ'
+        });
+        return;
+    }
+
+    // ใช้เวลาคงที่ 60 นาที และ 100 ข้อเสมอ
+    S.useTimer  = true;
+    S.timerMin  = FIXED_TIMER_MIN;
+    S.numQ      = FIXED_NUM_Q;
     loadSubjects();
 }
 
@@ -699,8 +635,8 @@ function fetchQuestions(lesson) {
         .then(r => r.json())
         .then(data => {
             if (!Array.isArray(data) || data.length === 0) throw new Error('ไม่พบข้อสอบ');
-            S.allQ      = data;
-            S.lesson    = lesson;
+            S.allQ   = data;
+            S.lesson = lesson;
             startExam();
         })
         .catch(e => {
@@ -716,36 +652,27 @@ function startExam() {
     S.answers     = new Array(S.questions.length).fill(null);
     S.idx         = 0;
     S.score       = 0;
-    S.totalSec    = S.timerMin * 60;
+    S.totalSec    = FIXED_TIMER_MIN * 60;   // ล็อค 60 นาที
     S.timeLeft    = S.totalSec;
     S.timeUsed    = 0;
     clearInterval(S.timerTick);
 
-    // Update quiz header
-    document.getElementById('quizPic').src   = S.profile?.pictureUrl || '';
-    document.getElementById('quizLesson').textContent = lesson => lesson;
-
-    document.getElementById('quizLesson').textContent = S.lesson;
+    document.getElementById('quizPic').src             = S.profile?.pictureUrl || '';
+    document.getElementById('quizLesson').textContent  = S.lesson;
 
     renderQuestion();
     show('quizScreen');
 
-    if (S.useTimer) {
-        document.getElementById('timerPill').classList.remove('hidden');
-        document.getElementById('timeBarWrap').classList.remove('hidden');
+    // จับเวลาเสมอ
+    document.getElementById('timerPill').classList.remove('hidden');
+    document.getElementById('timeBarWrap').classList.remove('hidden');
+    updateTimer();
+    S.timerTick = setInterval(() => {
+        S.timeLeft--;
+        S.timeUsed++;
         updateTimer();
-        S.timerTick = setInterval(() => {
-            S.timeLeft--;
-            S.timeUsed++;
-            updateTimer();
-            if (S.timeLeft <= 0) { clearInterval(S.timerTick); autoSubmit(); }
-        }, 1000);
-    } else {
-        document.getElementById('timerPill').classList.add('hidden');
-        document.getElementById('timeBarWrap').classList.add('hidden');
-        // ยังนับเวลาที่ใช้อยู่ (ไม่แสดง)
-        S.timerTick = setInterval(() => { S.timeUsed++; }, 1000);
-    }
+        if (S.timeLeft <= 0) { clearInterval(S.timerTick); autoSubmit(); }
+    }, 1000);
 }
 
 // ── Timer ──────────────────────────────────────────────
@@ -847,6 +774,11 @@ function submitExam() {
         if (user === correct) S.score++;
     });
 
+    // บันทึกว่าสอบเสร็จแล้ว (ป้องกันสอบซ้ำใน session เดียว)
+    if (S.profile?.userId) {
+        sessionStorage.setItem('examDone_' + S.profile.userId, '1');
+    }
+
     saveResult();
     shareResults();
 
@@ -861,8 +793,8 @@ function submitExam() {
         document.getElementById('scoreFraction').textContent = `${S.score}/${tot}`;
         document.getElementById('scoreLabel').textContent    = pass ? '🎉 ยินดีด้วย!' : '😢 เสียใจด้วย';
         document.getElementById('st-correct').textContent    = S.score;
-        document.getElementById('st-wrong').textContent     = tot - S.score;
-        document.getElementById('st-time').textContent      = `${min}:${sec}`;
+        document.getElementById('st-wrong').textContent      = tot - S.score;
+        document.getElementById('st-time').textContent       = `${min}:${sec}`;
 
         const badge = document.getElementById('scoreBadge');
         badge.textContent  = pass ? '✅ ผ่านการสอบ' : '❌ ไม่ผ่านการสอบ';
@@ -880,33 +812,13 @@ function submitExam() {
     }, 1500);
 }
 
-// ── Review ─────────────────────────────────────────────
-function showReview() {
-    document.getElementById('reviewContent').innerHTML = S.questions.map((q, i) => {
-        const user    = S.answers[i] || 'ไม่ได้ตอบ';
-        const correct = Array.isArray(q.answer) ? q.answer[0] : q.answer || '';
-        const isRight = user.trim() === correct.trim();
-        const cls     = isRight ? 'review-correct' : 'review-wrong';
-        const icon    = isRight
-            ? '<span class="font-bold text-green-600">✔ ถูก</span>'
-            : '<span class="font-bold text-red-600">✖ ผิด</span>';
-        return `
-            <div class="p-4 rounded-xl border-2 ${cls}">
-                <p class="font-semibold mb-2">${i+1}. ${escHtml(q.question)}</p>
-                <p class="text-sm mb-1">คำตอบของคุณ: <span class="font-semibold">${escHtml(user)}</span> ${icon}</p>
-                ${!isRight ? `<p class="text-sm mb-1">เฉลย: <span class="font-semibold text-green-700">${escHtml(correct)}</span></p>` : ''}
-                <div class="mt-2 pt-2 border-t border-current border-opacity-20">
-                    <p class="text-xs font-semibold opacity-70 mb-1">คำอธิบาย</p>
-                    <p class="text-sm">${escHtml(q.explanation || 'ไม่มีคำอธิบาย')}</p>
-                </div>
-            </div>`;
-    }).join('');
-    show('reviewScreen');
-}
-
-// ── Restart ────────────────────────────────────────────
-function restartQuiz() {
-    startExam(); // ใช้ S.allQ เดิม, สุ่มใหม่
+// ── Close App ──────────────────────────────────────────
+function closeApp() {
+    if (liff.isInClient()) {
+        liff.closeWindow();
+    } else {
+        Swal.fire({ icon: 'success', title: 'ขอบคุณที่เข้าร่วมการสอบ', showConfirmButton: false, timer: 2000 });
+    }
 }
 
 // ── Save Result ────────────────────────────────────────
@@ -916,7 +828,7 @@ async function saveResult() {
             method: 'POST', mode: 'no-cors',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({
-                action: 'saveResult',
+                action:      'saveResult',
                 userId:      S.profile?.userId      || '',
                 displayName: S.profile?.displayName || '',
                 email:       S.email                || '',
@@ -994,6 +906,20 @@ async function initLIFF() {
         if (!data.success) {
             show('authScreen');
             Swal.fire({ icon:'error', title:'ไม่มีสิทธิ์เข้าใช้งาน', text: data.message || 'ติดต่อผู้ดูแลระบบ', allowOutsideClick: false });
+            return;
+        }
+
+        // ตรวจสอบว่าเคยสอบในเซสชันนี้แล้วหรือยัง
+        if (sessionStorage.getItem('examDone_' + S.profile.userId)) {
+            show('authScreen');
+            document.getElementById('authMsg').textContent = '';
+            Swal.fire({
+                icon: 'info',
+                title: 'คุณสอบเสร็จแล้ว',
+                text: 'ระบบอนุญาตให้สอบได้เพียง 1 ครั้ง ขอบคุณที่เข้าร่วมการสอบ',
+                allowOutsideClick: false,
+                confirmButtonText: 'รับทราบ'
+            });
             return;
         }
 
