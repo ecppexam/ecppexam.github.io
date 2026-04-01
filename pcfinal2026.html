@@ -348,18 +348,18 @@ input[type="number"], input[type="range"] { accent-color: var(--accent); }
         <div class="section-label">⏱ เวลาสอบ</div>
         <div class="timer-lock-box">
             <span class="timer-lock-icon">🔒</span>
-            <span>เวลาในการสอบ <strong>60 นาที</strong> </span>
+            <span>เวลาในการสอบ <strong>30 นาที</strong> </span>
         </div>
     </div>
 
     <hr class="divider mb-6">
 
-    <!-- 📝 จำนวนข้อสอบ (ล็อค 100 ข้อ) -->
+    <!-- 📝 จำนวนข้อสอบ (ล็อค 50 ข้อ) -->
     <div class="mb-6">
         <div class="section-label">📝 จำนวนข้อสอบ</div>
         <div class="timer-lock-box">
             <span class="timer-lock-icon">🔒</span>
-            <span>จำนวนข้อสอบ <strong>100 ข้อ</strong> </span>
+            <span>จำนวนข้อสอบ <strong>50 ข้อ</strong> </span>
         </div>
     </div>
 
@@ -411,7 +411,7 @@ input[type="number"], input[type="range"] { accent-color: var(--accent); }
             </div>
             <div class="flex items-center gap-2">
                 <img id="quizPic" class="w-9 h-9 rounded-full object-cover border-2 border-white border-opacity-50" src="" alt="">
-                <div id="timerPill" class="timer-pill hidden">⏱ 60:00</div>
+                <div id="timerPill" class="timer-pill hidden">⏱ 30:00</div>
             </div>
         </div>
         <!-- Question progress bar -->
@@ -502,7 +502,7 @@ input[type="number"], input[type="range"] { accent-color: var(--accent); }
 </div>
 
 <footer class="text-center mt-8" style="color:var(--text-muted);font-size:13px">
-    © 2025 ระบบข้อสอบ e-CPP
+    © 2026 ระบบข้อสอบ e-CPP
 </footer>
 </div><!-- /max-w-3xl -->
 
@@ -517,8 +517,8 @@ const GAS_URL = 'https://script.google.com/macros/s/AKfycbzZvqGJ0nwgwh4cFvAphE5E
 // ══════════════════════════════════════════════════════
 //  ล็อคเวลา 60 นาที และ 100 ข้อ (ห้ามแก้ไขโดยผู้ใช้)
 // ══════════════════════════════════════════════════════
-const FIXED_TIMER_MIN = 60;
-const FIXED_NUM_Q     = 100;
+const FIXED_TIMER_MIN = 30;
+const FIXED_NUM_Q     = 50;
 
 // ── State ──────────────────────────────────────────────
 const S = {
